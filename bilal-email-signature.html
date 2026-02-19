@@ -16,14 +16,11 @@
       padding: 40px 20px;
     }
 
-    /* ═══════════════════════════════════
-       SIGNATURE CARD — dark navy theme
-       ═══════════════════════════════════ */
     #sig-wrap {
       background: #0d1b3e;
       border-radius: 16px;
       box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
-      max-width: 720px;
+      max-width: 740px;
       width: 100%;
       overflow: hidden;
     }
@@ -35,13 +32,13 @@
       padding: 28px 28px 24px 28px;
     }
 
-    /* ── Left: logo top-left + photo below ── */
+    /* ── Left: logo + photo ── */
     .sig-left {
       display: flex;
       flex-direction: column;
       align-items: center;
       flex-shrink: 0;
-      width: 180px;
+      width: 190px;
       gap: 18px;
     }
     .sig-logo-wrap {
@@ -51,24 +48,19 @@
       justify-content: flex-start;
     }
     .sig-logo-wrap img {
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
       object-fit: contain;
     }
 
-    /* Photo with Instagram-style gradient ring */
+    /* Instagram-style gradient ring */
     .sig-photo-ring {
-      width: 155px;
-      height: 155px;
+      width: 158px;
+      height: 158px;
       border-radius: 50%;
       padding: 3px;
       background: conic-gradient(
-        #f09433 0%,
-        #e6683c 20%,
-        #dc2743 40%,
-        #cc2366 60%,
-        #bc1888 80%,
-        #f09433 100%
+        #f09433 0%, #e6683c 20%, #dc2743 40%, #cc2366 60%, #bc1888 80%, #f09433 100%
       );
       flex-shrink: 0;
     }
@@ -103,42 +95,36 @@
       letter-spacing: 2.5px;
       margin-bottom: 10px;
     }
-    /* Red + gold underline accent */
     .sig-title-underline {
       display: flex;
-      gap: 0;
       margin-bottom: 20px;
     }
     .sig-title-underline span:first-child {
-      display: block;
-      width: 28px;
-      height: 2.5px;
-      background: #e02020;
-      border-radius: 2px;
+      display: block; width: 28px; height: 2.5px;
+      background: #e02020; border-radius: 2px;
     }
     .sig-title-underline span:last-child {
-      display: block;
-      width: 18px;
-      height: 2.5px;
-      background: #D4AF37;
-      border-radius: 2px;
+      display: block; width: 18px; height: 2.5px;
+      background: #D4AF37; border-radius: 2px;
     }
 
-    /* Contact items — outline icon style */
+    /* Contact items */
     .sig-contacts {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 11px;
     }
     .sig-contact-item {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: #d0d8f0;
-      font-size: 13px;
-      font-weight: 400;
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 500;
       line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
     .sig-contact-item .cicon svg {
       width: 20px;
@@ -149,9 +135,8 @@
       stroke-linecap: round;
       stroke-linejoin: round;
       display: block;
-      margin-top: 1px;
     }
-    .sig-contact-item:hover { color: #ffffff; }
+    .sig-contact-item:hover { color: #D4AF37; }
     .sig-contact-item:hover .cicon svg { stroke: #D4AF37; }
 
     /* ── Bottom bar ── */
@@ -159,9 +144,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 28px;
+      padding: 13px 28px;
       border-top: 1px solid rgba(255,255,255,0.08);
-      background: rgba(0,0,0,0.15);
+      background: rgba(0,0,0,0.18);
     }
     .sig-footer-left {
       display: flex;
@@ -182,36 +167,46 @@
       align-items: center;
     }
     .soc {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; flex-shrink: 0;
       transition: transform 0.15s, opacity 0.15s;
     }
     .soc:hover { transform: translateY(-2px); opacity: 0.9; }
     .soc svg { width: 16px; height: 16px; fill: #fff; }
-    .soc.wa  { background: #25D366; }
-    .soc.fb  { background: #1877F2; }
-    .soc.ig  { background: linear-gradient(135deg, #f09433 0%, #dc2743 50%, #bc1888 100%); }
-    .soc.li  { background: #0A66C2; }
-    .soc.tt  { background: #2a2a2a; }
-    .soc.yt  { background: #FF0000; }
+    .soc.wa { background: #25D366; }
+    .soc.fb { background: #1877F2; }
+    .soc.ig { background: linear-gradient(135deg, #f09433 0%, #dc2743 50%, #bc1888 100%); }
+    .soc.li { background: #0A66C2; }
+    .soc.tt { background: #2a2a2a; }
+    .soc.yt { background: #FF0000; }
 
+    /* Footer brand — "EAGLE WINGS" more prominent */
     .sig-footer-brand {
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.35);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       white-space: nowrap;
     }
-    .sig-footer-brand strong {
+    .sig-footer-brand .brand-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .sig-footer-brand .brand-dot {
       color: #D4AF37;
+      font-size: 14px;
       font-weight: 700;
+    }
+    .sig-footer-brand .brand-sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: #D4AF37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
   </style>
 </head>
@@ -219,7 +214,6 @@
 
 <div id="sig-wrap">
 
-  <!-- Main body -->
   <div class="sig-body">
 
     <!-- Left: logo + photo -->
@@ -247,12 +241,12 @@
 
         <a href="mailto:bilal@eaglewingsuae.com" class="sig-contact-item">
           <span class="cicon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></span>
-          bilal@eaglewingsuae.com
+          BILAL@EAGLEWINGSUAE.COM
         </a>
 
         <a href="https://eaglewingsuae.com/" target="_blank" class="sig-contact-item">
           <span class="cicon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></span>
-          eaglewingsuae.com
+          EAGLEWINGSUAE.COM
         </a>
 
         <a href="https://www.google.com/maps/place/Eagle+Wings+Business+Consultant/@25.0791251,55.1478561,17z/data=!3m1!4b1!4m6!3m5!1s0x3e5f4399e76d0543:0x76fce73242c77b62!8m2!3d25.0791203!4d55.150431!16s%2Fg%2F11qzcnrthf?entry=ttu&g_ep=EgoyMDI2MDIxNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="sig-contact-item">
@@ -296,7 +290,13 @@
 
       </div>
     </div>
-    <div class="sig-footer-brand">Eagle Wings &nbsp;·&nbsp; <strong>Business Consultant</strong></div>
+
+    <!-- Footer brand: EAGLE WINGS prominent in white, Business Consultant in gold -->
+    <div class="sig-footer-brand">
+      <span class="brand-name">Eagle Wings</span>
+      <span class="brand-dot">·</span>
+      <span class="brand-sub">Business Consultant</span>
+    </div>
   </div>
 
 </div>
