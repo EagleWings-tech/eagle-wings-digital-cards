@@ -163,7 +163,25 @@
         if (data.youtube) socials.innerHTML += '<a href="' + data.youtube + '" target="_blank" rel="noopener" class="soc yt" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>';
     }
 
+    function copyToClipboard(inputEl, btnEl) {
+        if (!inputEl || !inputEl.value || !btnEl) return;
+        inputEl.select();
+        inputEl.setSelectionRange(0, 99999);
+        try {
+            navigator.clipboard.writeText(inputEl.value);
+        } catch (e) {
+            document.execCommand('copy');
+        }
+        btnEl.textContent = 'Copied!';
+        btnEl.classList.add('copied');
+        setTimeout(function () {
+            btnEl.textContent = 'Copy link';
+            btnEl.classList.remove('copied');
+        }, 2000);
+    }
+
     var id = getQueryParam('id') || 'demo';
+    var view = getQueryParam('view') || '';
     getData(id, function (data) {
         if (!data) {
             document.getElementById('notFound').style.display = 'block';
@@ -171,6 +189,25 @@
             document.getElementById('cardView').style.display = 'block';
             fillCard(data);
             fillSignature(data);
+            var baseUrl = window.location.origin + window.location.pathname;
+            var cardUrl = baseUrl + '?id=' + encodeURIComponent(id);
+            var signatureUrl = baseUrl + '?id=' + encodeURIComponent(id) + '&view=signature';
+            var cardInput = document.getElementById('link-business-card');
+            var sigInput = document.getElementById('link-email-signature');
+            var cardCopyBtn = document.getElementById('copy-business-card');
+            var sigCopyBtn = document.getElementById('copy-email-signature');
+            if (cardInput) cardInput.value = cardUrl;
+            if (sigInput) sigInput.value = signatureUrl;
+            if (cardCopyBtn) cardCopyBtn.addEventListener('click', function () { copyToClipboard(cardInput, cardCopyBtn); });
+            if (sigCopyBtn) sigCopyBtn.addEventListener('click', function () { copyToClipboard(sigInput, sigCopyBtn); });
+            if (view === 'signature') {
+                var sigSection = document.getElementById('signature-section');
+                var cardSection = document.getElementById('business-card-section');
+                var shareLinks = document.querySelector('.card-share-links');
+                if (cardSection) cardSection.style.display = 'none';
+                if (shareLinks) shareLinks.style.display = 'none';
+                if (sigSection) sigSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
     });
 })();

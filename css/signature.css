@@ -1,6 +1,6 @@
 /* Email signature – layout and components */
 #sig-wrap {
-    background: #0d1b3e;
+    background: var(--sig-bg);
     border-radius: 16px;
     box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07);
     max-width: 740px;
@@ -11,6 +11,7 @@
 .sig-body {
     display: flex;
     align-items: stretch;
+    padding: 4px 0;
 }
 
 .sig-left {
@@ -20,9 +21,9 @@
     justify-content: center;
     flex-shrink: 0;
     width: 200px;
-    padding: 14px 16px;
-    gap: 10px;
-    border-right: 1px solid rgba(255,255,255,0.09);
+    padding: 20px 18px;
+    gap: 12px;
+    border-right: 1px solid rgba(255,255,255,0.06);
 }
 
 .sig-logo-wrap {
@@ -51,7 +52,7 @@
 .sig-brand-line2 {
     font-size: 8.5px;
     font-weight: 600;
-    color: #D4AF37;
+    color: var(--brand-accent);
     text-transform: uppercase;
     letter-spacing: 2px;
     text-align: center;
@@ -73,13 +74,13 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #0d1b3e;
+    border: 3px solid var(--sig-bg);
     display: block;
 }
 
 .sig-right {
     flex: 1;
-    padding: 14px 22px;
+    padding: 20px 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -88,40 +89,42 @@
 .sig-top {}
 
 .sig-name {
+    font-family: var(--font-heading);
     font-size: 28px;
     font-weight: 800;
     color: #ffffff;
     line-height: 1.05;
-    margin-bottom: 5px;
-    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
 }
 
 .sig-title {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
-    color: #D4AF37;
+    color: var(--brand-accent);
     text-transform: uppercase;
     letter-spacing: 2.5px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .sig-title-underline {
     display: flex;
+    gap: 6px;
 }
 
 .sig-title-underline span:first-child {
     display: block;
-    width: 26px;
+    width: 28px;
     height: 2.5px;
-    background: #e02020;
+    background: var(--brand-primary);
     border-radius: 2px;
 }
 
 .sig-title-underline span:last-child {
     display: block;
-    width: 16px;
+    width: 18px;
     height: 2.5px;
-    background: #D4AF37;
+    background: var(--brand-accent);
     border-radius: 2px;
 }
 
@@ -130,7 +133,8 @@
     flex-direction: column;
     justify-content: space-evenly;
     flex: 1;
-    padding-top: 10px;
+    padding-top: 12px;
+    gap: 2px;
 }
 
 .sig-contact-item {
@@ -142,7 +146,9 @@
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.3px;
-    padding: 4px 0;
+    padding: 6px 0;
+    line-height: 1.4;
+    transition: color 0.2s ease;
 }
 
 .sig-contact-item.upper {
@@ -163,20 +169,28 @@
 }
 
 .sig-contact-item:hover {
-    color: #D4AF37;
+    color: var(--brand-accent);
 }
 
 .sig-contact-item:hover .cicon svg {
-    stroke: #D4AF37;
+    stroke: var(--brand-accent);
+}
+
+.sig-contact-item:focus-visible {
+    outline: none;
+    color: var(--brand-accent);
+}
+.sig-contact-item:focus-visible .cicon svg {
+    stroke: var(--brand-accent);
 }
 
 .sig-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 9px 22px;
-    border-top: 1px solid rgba(255,255,255,0.07);
-    background: rgba(0,0,0,0.20);
+    padding: 12px 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.22);
 }
 
 .sig-footer-left {
@@ -214,7 +228,11 @@
 
 .sig-socials .soc:hover {
     transform: translateY(-2px);
-    opacity: 0.9;
+    opacity: 0.95;
+}
+.sig-socials .soc:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--brand-accent);
 }
 
 .sig-socials .soc svg {
@@ -248,7 +266,7 @@
 .sig-footer-brand .brand-sub {
     font-size: 8.5px;
     font-weight: 600;
-    color: #D4AF37;
+    color: var(--brand-accent);
     text-transform: uppercase;
     letter-spacing: 2.5px;
 }
