@@ -3,10 +3,6 @@
         fullName: 'Bilal Cheema',
         jobTitle: 'Digital Transformation Lead',
         profilePhotoUrl: 'https://i.imgur.com/rT4jZG4.jpeg',
-        brandLine1: 'Eagle Wings',
-        brandLine2: 'Business Consultant',
-        companyName: 'Eagle Wings Business Consultancy',
-        logoUrl: '',
         mobile: '+971 50 631 1572',
         email: 'bilal@eaglewingsuae.com',
         website: 'https://eaglewingsuae.com/',
@@ -25,9 +21,29 @@
         return m ? decodeURIComponent(m[1]) : '';
     }
 
-    function getData(id) {
-        if (id === 'demo') return DEMO_DATA;
-        return null;
+    function getData(id, callback) {
+        if (id === 'demo') {
+            if (callback) callback(DEMO_DATA);
+            else return DEMO_DATA;
+            return;
+        }
+        var apiBase = (typeof window.API_BASE !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
+        fetch(apiBase + '/api/identity/' + encodeURIComponent(id))
+            .then(function (res) {
+                if (res.status === 404) {
+                    if (callback) callback(null);
+                    else return null;
+                    return;
+                }
+                if (!res.ok) throw new Error('Failed to load');
+                return res.json();
+            })
+            .then(function (data) {
+                if (callback) callback(data);
+            })
+            .catch(function () {
+                if (callback) callback(null);
+            });
     }
 
     function setText(el, text) {
@@ -148,12 +164,13 @@
     }
 
     var id = getQueryParam('id') || 'demo';
-    var data = getData(id);
-    if (!data) {
-        document.getElementById('notFound').style.display = 'block';
-    } else {
-        document.getElementById('cardView').style.display = 'block';
-        fillCard(data);
-        fillSignature(data);
-    }
+    getData(id, function (data) {
+        if (!data) {
+            document.getElementById('notFound').style.display = 'block';
+        } else {
+            document.getElementById('cardView').style.display = 'block';
+            fillCard(data);
+            fillSignature(data);
+        }
+    });
 })();

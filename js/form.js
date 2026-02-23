@@ -3,11 +3,77 @@
     var profileZone = document.getElementById('profilePhotoZone');
     var profileInput = document.getElementById('profilePhoto');
     var profilePreview = document.getElementById('profilePhotoPreview');
-    var logoZone = document.getElementById('brandLogoZone');
-    var logoInput = document.getElementById('brandLogo');
-    var logoPreview = document.getElementById('brandLogoPreview');
 
     if (!form) return;
+
+    var requiredFields = [
+        { id: 'fullName', label: 'Full Name', message: 'Please enter your full name.' },
+        { id: 'jobTitle', label: 'Job Title', message: 'Please enter your job title.' },
+        { id: 'profilePhoto', label: 'Profile Photo', message: 'Please upload a profile photo (JPG, PNG or WebP).', isFile: true },
+        { id: 'mobile', label: 'Mobile', message: 'Please enter your mobile number.' },
+        { id: 'email', label: 'Work Email', message: 'Please enter a valid work email address.' }
+    ];
+
+    function getFieldGroup(field) {
+        if (!field) return null;
+        if (field.id === 'profilePhoto') return profileZone ? profileZone.closest('.form-group') : null;
+        return field.closest('.form-group');
+    }
+
+    function getOrCreateErrorEl(group) {
+        if (!group) return null;
+        var el = group.querySelector('.field-error');
+        if (el) return el;
+        el = document.createElement('span');
+        el.className = 'field-error';
+        el.setAttribute('role', 'alert');
+        el.setAttribute('aria-live', 'polite');
+        group.appendChild(el);
+        return el;
+    }
+
+    function setError(field, message) {
+        var group = getFieldGroup(field);
+        if (!group) return;
+        group.classList.add('is-invalid');
+        var errEl = getOrCreateErrorEl(group);
+        if (errEl) errEl.textContent = message;
+    }
+
+    function clearError(field) {
+        var group = getFieldGroup(field);
+        if (!group) return;
+        group.classList.remove('is-invalid');
+        var errEl = group.querySelector('.field-error');
+        if (errEl) errEl.textContent = '';
+    }
+
+    function validateForm() {
+        var invalid = [];
+        requiredFields.forEach(function (def) {
+            var field = document.getElementById(def.id);
+            var group = getFieldGroup(field);
+            var valid = false;
+            if (def.isFile && field) {
+                valid = field.files && field.files.length > 0;
+            } else if (field) {
+                valid = field.value.trim() !== '';
+            }
+            if (!valid && group) {
+                setError(field, def.message);
+                invalid.push({ group: group, field: field });
+            } else {
+                clearError(field);
+            }
+        });
+        return invalid;
+    }
+
+    function clearAllErrors() {
+        requiredFields.forEach(function (def) {
+            clearError(document.getElementById(def.id));
+        });
+    }
 
     function setupUploadZone(zone, input, preview) {
         if (!zone || !input) return;
@@ -34,11 +100,19 @@
                 if (preview) preview.src = '';
                 zone.classList.remove('has-file');
             }
+            clearError(this);
         });
     }
 
     setupUploadZone(profileZone, profileInput, profilePreview);
-    setupUploadZone(logoZone, logoInput, logoPreview);
+
+    requiredFields.forEach(function (def) {
+        if (def.isFile) return;
+        var field = document.getElementById(def.id);
+        if (!field) return;
+        field.addEventListener('input', function () { clearError(this); });
+        field.addEventListener('blur', function () { clearError(this); });
+    });
 
     var whatsappInput = document.getElementById('whatsapp');
     var mobileInput = document.getElementById('mobile');
@@ -52,15 +126,82 @@
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var formData = new FormData(form);
-        console.log('Form submitted. Backend will handle upload and link creation.');
-        for (var pair of formData.entries()) {
-            if (pair[1] instanceof File) {
-                console.log(pair[0], pair[1].name, pair[1].size);
-            } else {
-                console.log(pair[0], pair[1]);
-            }
+        clearAllErrors();
+        var invalid = validateForm();
+        if (invalid.length > 0) {
+            invalid[0].group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
         }
-        alert('Form is ready. Connect a backend to upload images and create your public link.');
+        var btn = document.getElementById('btnSubmit');
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = 'Creating…';
+        }
+        var profileFile = profileInput && profileInput.files && profileInput.files[0];
+        function readDataUrl(file) {
+            return new Promise(function (resolve, reject) {
+                var r = new FileReader();
+                r.onload = function () { resolve(r.result); };
+                r.onerror = reject;
+                r.readAsDataURL(file);
+            });
+        }
+        Promise.all([
+            readDataUrl(profileFile),
+        ]).then(function (results) {
+            var profilePhotoBase64 = results[0];
+            var payload = {
+                fullName: document.getElementById('fullName').value.trim(),
+                jobTitle: document.getElementById('jobTitle').value.trim(),
+                profilePhotoBase64: profilePhotoBase64,
+                mobile: document.getElementById('mobile').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                website: document.getElementById('website').value.trim(),
+                officeAddress: document.getElementById('officeAddress').value.trim(),
+                mapsLink: document.getElementById('mapsLink').value.trim(),
+                whatsapp: document.getElementById('whatsapp').value.trim(),
+                facebook: document.getElementById('facebook').value.trim(),
+                instagram: document.getElementById('instagram').value.trim(),
+                linkedin: document.getElementById('linkedin').value.trim(),
+                tiktok: document.getElementById('tiktok').value.trim(),
+                youtube: document.getElementById('youtube').value.trim()
+            };
+            var apiBase = (typeof window.API_BASE !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
+            return fetch(apiBase + '/api/identity', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+        })
+            .then(function (res) {
+                return res.text().then(function (text) {
+                    var data = null;
+                    if (text && text.trim()) {
+                        try { data = JSON.parse(text); } catch (e) { /* ignore */ }
+                    }
+                    if (!res.ok) {
+                        var msg = (data && (data.message || data.error)) || text || ('Request failed (' + res.status + ')');
+                        throw new Error(msg);
+                    }
+                    return data || {};
+                });
+            })
+            .then(function (data) {
+                if (data.cardUrl) {
+                    window.location.href = data.cardUrl;
+                } else if (data.id) {
+                    window.location.href = '/card/?id=' + data.id;
+                } else {
+                    alert('Created. ID: ' + (data.id || 'unknown'));
+                }
+            })
+            .catch(function (err) {
+                alert(err.message || 'Failed to create identity. Check the console.');
+                console.error(err);
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'Create Business Identity';
+                }
+            });
     });
 })();

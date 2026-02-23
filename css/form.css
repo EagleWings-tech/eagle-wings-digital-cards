@@ -111,6 +111,28 @@
     box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.15);
 }
 
+.form-group.is-invalid input[type="text"],
+.form-group.is-invalid input[type="email"],
+.form-group.is-invalid input[type="tel"],
+.form-group.is-invalid input[type="url"],
+.form-group.is-invalid textarea {
+    border-color: #c53030;
+    box-shadow: 0 0 0 2px rgba(197, 48, 48, 0.2);
+}
+
+.form-group.is-invalid .upload-zone {
+    border-color: #c53030;
+    background: rgba(197, 48, 48, 0.06);
+}
+
+.field-error {
+    display: block;
+    font-size: 0.8125rem;
+    color: #c53030;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
 .form-card textarea {
     min-height: 80px;
     resize: vertical;
