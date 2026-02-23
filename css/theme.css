@@ -5,13 +5,29 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     background: linear-gradient(160deg, #001a6e 0%, #003087 40%, #0057b8 100%);
+    height: 100%;
     min-height: 100vh;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden;
+}
+
+/* Scrollable main content – use on pages where body is fixed (no body scroll) */
+.page-screen {
+    height: 100vh;
+    height: 100dvh;
+    overflow: auto;
+    padding: 20px;
+    -webkit-overflow-scrolling: touch;
 }
 
 body::before {

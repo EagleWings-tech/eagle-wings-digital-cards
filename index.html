@@ -6,25 +6,32 @@
     <title>Eagle Wings Digital Cards</title>
     <link rel="stylesheet" href="css/theme.css">
     <style>
-        .landing { max-width: 480px; margin: 0 auto; position: relative; z-index: 1; text-align: center; padding: 48px 24px; }
+        .landing { max-width: 480px; margin: 0 auto; position: relative; z-index: 1; text-align: center; padding: 48px 24px; min-height: min-content; }
+        .landing-logo-wrap { display: inline-block; padding: 10px; margin-bottom: 24px; background: linear-gradient(160deg, #f0f5ff 0%, #e8f0fb 60%, #f5f8ff 100%); border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 30, 110, 0.25), 0 0 0 1px rgba(255,255,255,0.15); }
+        .landing-logo { width: 120px; height: 120px; object-fit: contain; display: block; }
         .landing h1 { font-size: 1.875rem; font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; }
         .landing p { font-size: 1rem; color: rgba(255,255,255,0.9); margin-bottom: 32px; line-height: 1.5; }
         .landing-actions { display: flex; flex-direction: column; gap: 16px; }
         .landing-actions a { display: block; padding: 14px 24px; border-radius: 12px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
-        .landing-actions .primary { background: linear-gradient(135deg, #003087 0%, #0057b8 100%); color: #fff; box-shadow: 0 4px 16px rgba(0,48,135,0.35); }
+        .landing-actions .primary { background: #0057b8; color: #fff; box-shadow: 0 4px 16px rgba(0,48,135,0.35); }
         .landing-actions .primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,48,135,0.4); }
         .landing-actions .secondary { background: rgba(255,255,255,0.15); color: #fff; border: 2px solid rgba(255,255,255,0.4); }
         .landing-actions .secondary:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
     </style>
 </head>
 <body>
+    <div class="page-screen">
     <div class="landing">
+        <div class="landing-logo-wrap">
+            <img src="images/logo.png" alt="Eagle Wings" class="landing-logo">
+        </div>
         <h1>Eagle Wings Digital Cards</h1>
         <p>Create your digital business card and email signature in one place. Fill the form, and get a shareable link.</p>
         <div class="landing-actions">
             <a href="form.html" class="primary">Create Business Identity</a>
             <!-- <a href="card/?id=demo" class="secondary">View example card &amp; signature</a> -->
         </div>
+    </div>
     </div>
 </body>
 </html>
