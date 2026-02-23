@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Identity | Eagle Wings Digital Cards</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/card.css">
+    <link rel="stylesheet" href="../css/signature.css">
+    <style>
+        .page-wrap { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; padding: 24px 16px 48px; }
+        .card-view-section { margin-bottom: 40px; }
+        .card-view-section:last-child { margin-bottom: 0; }
+        .card-view-section h2 { font-size: 1rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+        .card-view-section .card-container { margin: 0 auto; }
+        #email-signature-wrap { background: #0d1b3e; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.35); }
+        .not-found { text-align: center; color: #fff; padding: 48px 24px; }
+        .not-found a { color: #aaccff; }
+    </style>
+</head>
+<body>
+    <div class="page-wrap" id="pageContent">
+        <div id="notFound" class="not-found" style="display: none;">
+            <p>Identity not found.</p>
+            <p><a href="../form.html">Create your business identity</a></p>
+        </div>
+
+        <div id="cardView" style="display: none;">
+            <section class="card-view-section" id="business-card-section">
+                <h2>Digital Business Card</h2>
+                <div class="card-container" id="business-card">
+                    <div class="card">
+                        <div class="brand-header">
+                            <img id="card-logo" src="" alt="" class="brand-logo" style="display: none;">
+                        </div>
+                        <img id="card-photo" src="" alt="" class="profile-photo">
+                        <h1 class="name" id="card-name"></h1>
+                        <div class="badge" id="card-title"></div>
+                        <div class="divider"></div>
+                        <div class="contact-grid">
+                            <a id="card-link-mobile" href="#" class="contact-item">
+                                <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C9.61 21 3 14.39 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.26.2 2.47.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg></div>
+                                <div class="contact-info">
+                                    <span class="contact-label">Mobile</span>
+                                    <span class="contact-text" id="card-mobile"></span>
+                                </div>
+                            </a>
+                            <a id="card-link-email" href="#" class="contact-item">
+                                <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+                                <div class="contact-info">
+                                    <span class="contact-label">Work Email</span>
+                                    <span class="contact-text" id="card-email"></span>
+                                </div>
+                            </a>
+                            <a id="card-link-website" href="#" class="contact-item" style="display: none;">
+                                <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+                                <div class="contact-info">
+                                    <span class="contact-label">Website</span>
+                                    <span class="contact-text" id="card-website"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <a id="card-link-address" href="#" class="location" style="display: none;">
+                            <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></div>
+                            <div>
+                                <div class="contact-label" style="margin-bottom: 4px;">Office Address</div>
+                                <div class="location-text" id="card-address"></div>
+                            </div>
+                        </a>
+                        <a id="card-link-whatsapp" href="#" class="cta-button" style="display: none;">
+                            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            Message us on WhatsApp
+                        </a>
+                        <div class="social-section-label">Follow Us</div>
+                        <div class="social-links" id="card-social-links"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card-view-section" id="signature-section">
+                <h2>Email Signature</h2>
+                <div id="email-signature-wrap">
+                    <div id="sig-wrap">
+                        <div class="sig-body">
+                            <div class="sig-left">
+                                <div class="sig-logo-wrap">
+                                    <img id="sig-logo" src="" alt="" style="display: none;">
+                                    <div class="sig-brand-line1" id="sig-brand1"></div>
+                                    <div class="sig-brand-line2" id="sig-brand2"></div>
+                                </div>
+                                <div class="sig-photo-ring">
+                                    <img id="sig-photo" src="" alt="" class="sig-photo">
+                                </div>
+                            </div>
+                            <div class="sig-right">
+                                <div class="sig-top">
+                                    <div class="sig-name" id="sig-name"></div>
+                                    <div class="sig-title" id="sig-title"></div>
+                                    <div class="sig-title-underline"><span></span><span></span></div>
+                                </div>
+                                <div class="sig-contacts" id="sig-contacts"></div>
+                            </div>
+                        </div>
+                        <div class="sig-footer">
+                            <div class="sig-footer-left">
+                                <span class="follow-label">Follow Us</span>
+                                <div class="sig-socials" id="sig-socials"></div>
+                            </div>
+                            <div class="sig-footer-brand">
+                                <span class="brand-name" id="sig-footer-brand1"></span>
+                                <span class="brand-sub" id="sig-footer-brand2"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="../js/card.js" defer></script>
+</body>
+</html>

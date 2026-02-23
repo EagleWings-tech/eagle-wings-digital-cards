@@ -1,0 +1,254 @@
+/* Email signature – layout and components */
+#sig-wrap {
+    background: #0d1b3e;
+    border-radius: 16px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07);
+    max-width: 740px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.sig-body {
+    display: flex;
+    align-items: stretch;
+}
+
+.sig-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 200px;
+    padding: 14px 16px;
+    gap: 10px;
+    border-right: 1px solid rgba(255,255,255,0.09);
+}
+
+.sig-logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.sig-logo-wrap img {
+    width: 82px;
+    height: 82px;
+    object-fit: contain;
+    display: block;
+}
+
+.sig-brand-line1 {
+    font-size: 11px;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    text-align: center;
+}
+
+.sig-brand-line2 {
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #D4AF37;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.sig-photo-ring {
+    width: 118px;
+    height: 118px;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(
+        #f09433 0%, #e6683c 20%, #dc2743 40%, #cc2366 60%, #bc1888 80%, #f09433 100%
+    );
+    flex-shrink: 0;
+}
+
+.sig-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #0d1b3e;
+    display: block;
+}
+
+.sig-right {
+    flex: 1;
+    padding: 14px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sig-top {}
+
+.sig-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.05;
+    margin-bottom: 5px;
+    letter-spacing: -0.5px;
+}
+
+.sig-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #D4AF37;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-bottom: 8px;
+}
+
+.sig-title-underline {
+    display: flex;
+}
+
+.sig-title-underline span:first-child {
+    display: block;
+    width: 26px;
+    height: 2.5px;
+    background: #e02020;
+    border-radius: 2px;
+}
+
+.sig-title-underline span:last-child {
+    display: block;
+    width: 16px;
+    height: 2.5px;
+    background: #D4AF37;
+    border-radius: 2px;
+}
+
+.sig-contacts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex: 1;
+    padding-top: 10px;
+}
+
+.sig-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    text-decoration: none;
+    color: #e8edf8;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 4px 0;
+}
+
+.sig-contact-item.upper {
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.sig-contact-item .cicon svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: #7a9cc0;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: block;
+    flex-shrink: 0;
+}
+
+.sig-contact-item:hover {
+    color: #D4AF37;
+}
+
+.sig-contact-item:hover .cicon svg {
+    stroke: #D4AF37;
+}
+
+.sig-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 22px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    background: rgba(0,0,0,0.20);
+}
+
+.sig-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.follow-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+}
+
+.sig-socials {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.sig-socials .soc {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: transform 0.15s, opacity 0.15s;
+}
+
+.sig-socials .soc:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.sig-socials .soc svg {
+    width: 15px;
+    height: 15px;
+    fill: #fff;
+}
+
+.sig-socials .soc.wa { background: #25D366; }
+.sig-socials .soc.fb { background: #1877F2; }
+.sig-socials .soc.ig { background: linear-gradient(135deg, #f09433 0%, #dc2743 50%, #bc1888 100%); }
+.sig-socials .soc.li { background: #0A66C2; }
+.sig-socials .soc.tt { background: #2a2a2a; }
+.sig-socials .soc.yt { background: #FF0000; }
+
+.sig-footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+}
+
+.sig-footer-brand .brand-name {
+    font-size: 12px;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+}
+
+.sig-footer-brand .brand-sub {
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #D4AF37;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+}

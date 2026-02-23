@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Business Identity | Eagle Wings Digital Cards</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+    <div class="form-wrapper">
+        <header class="form-header">
+            <h1>Create Your Business Identity</h1>
+            <p>Fill in your details and upload images. We'll generate your digital card and email signature.</p>
+        </header>
+
+        <form id="business-identity-form" class="form-card" action="#" method="post" enctype="multipart/form-data">
+            <section class="form-section">
+                <h2 class="form-section-title">Personal</h2>
+                <div class="form-group">
+                    <label for="fullName">Full Name <span class="optional">(required)</span></label>
+                    <input type="text" id="fullName" name="fullName" placeholder="e.g. Bilal Cheema" required>
+                </div>
+                <div class="form-group">
+                    <label for="jobTitle">Job Title <span class="optional">(required)</span></label>
+                    <input type="text" id="jobTitle" name="jobTitle" placeholder="e.g. Digital Transformation Lead" required>
+                </div>
+                <div class="form-group">
+                    <label for="profilePhoto">Profile Photo <span class="optional">(required)</span></label>
+                    <div class="upload-zone" id="profilePhotoZone" role="button" tabindex="0" aria-label="Upload profile photo">
+                        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/jpeg,image/png,image/webp" required>
+                        <div class="upload-zone-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 12m-3.2 0a3.2 3.2 0 1 0 6.4 0a3.2 3.2 0 1 0 -6.4 0"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                        </div>
+                        <span>Click to upload profile photo</span>
+                        <small>JPG, PNG or WebP. Square works best.</small>
+                        <img class="upload-preview" id="profilePhotoPreview" alt="" aria-hidden="true">
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2 class="form-section-title">Brand & Logo</h2>
+                <div class="form-group">
+                    <label for="brandLine1">Brand Line 1 <span class="optional">(e.g. Eagle Wings)</span></label>
+                    <input type="text" id="brandLine1" name="brandLine1" placeholder="Company or brand name">
+                </div>
+                <div class="form-group">
+                    <label for="brandLine2">Brand Line 2 <span class="optional">(e.g. Business Consultant)</span></label>
+                    <input type="text" id="brandLine2" name="brandLine2" placeholder="Tagline or subtitle">
+                </div>
+                <div class="form-group">
+                    <label for="companyName">Company Name <span class="optional">(optional)</span></label>
+                    <input type="text" id="companyName" name="companyName" placeholder="e.g. Eagle Wings Business Consultancy">
+                </div>
+                <div class="form-group">
+                    <label for="brandLogo">Brand Logo <span class="optional">(optional)</span></label>
+                    <div class="upload-zone" id="brandLogoZone" role="button" tabindex="0" aria-label="Upload brand logo">
+                        <input type="file" id="brandLogo" name="brandLogo" accept="image/jpeg,image/png,image/webp,image/svg+xml">
+                        <div class="upload-zone-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        </div>
+                        <span>Click to upload logo</span>
+                        <small>PNG, JPG, WebP or SVG</small>
+                        <img class="upload-preview logo-preview" id="brandLogoPreview" alt="" aria-hidden="true">
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2 class="form-section-title">Contact</h2>
+                <div class="form-row-grid">
+                    <div class="form-group">
+                        <label for="mobile">Mobile <span class="optional">(required)</span></label>
+                        <input type="tel" id="mobile" name="mobile" placeholder="+971 50 631 1572" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Work Email <span class="optional">(required)</span></label>
+                        <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="website">Website <span class="optional">(optional)</span></label>
+                    <input type="url" id="website" name="website" placeholder="https://example.com">
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2 class="form-section-title">Office Address</h2>
+                <div class="form-group">
+                    <label for="officeAddress">Address <span class="optional">(optional)</span></label>
+                    <textarea id="officeAddress" name="officeAddress" placeholder="e.g. 1509, 1 Lake Plaza, JLT Cluster T&#10;Dubai, United Arab Emirates" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mapsLink">Google Maps Link <span class="optional">(optional)</span></label>
+                    <input type="url" id="mapsLink" name="mapsLink" placeholder="https://maps.google.com/...">
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2 class="form-section-title">Social & WhatsApp</h2>
+                <div class="form-group">
+                    <label for="whatsapp">WhatsApp Number <span class="optional">(optional, often same as mobile)</span></label>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="+971 50 631 1572">
+                </div>
+                <div class="social-grid">
+                    <div class="form-group">
+                        <label for="facebook">Facebook URL</label>
+                        <input type="url" id="facebook" name="facebook" placeholder="https://facebook.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label for="instagram">Instagram URL</label>
+                        <input type="url" id="instagram" name="instagram" placeholder="https://instagram.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn URL</label>
+                        <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label for="tiktok">TikTok URL</label>
+                        <input type="url" id="tiktok" name="tiktok" placeholder="https://tiktok.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label for="youtube">YouTube URL</label>
+                        <input type="url" id="youtube" name="youtube" placeholder="https://youtube.com/...">
+                    </div>
+                </div>
+            </section>
+
+            <div class="submit-wrap">
+                <button type="submit" class="btn-submit" id="btnSubmit">Create Business Identity</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/form.js" defer></script>
+</body>
+</html>
