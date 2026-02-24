@@ -1,17 +1,19 @@
 /* Eagle Wings Digital Cards – shared theme */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
 
 :root {
     --brand-primary: #003087;
     --brand-primary-light: #0057b8;
     --brand-accent: #D4AF37;
     --text-primary: #001a6e;
-    --text-muted: #7a8fa8;
-    --card-bg: #f0f5ff;
-    --card-bg-end: #e8f0fb;
+    --text-muted: #5a6c82;
+    --card-bg: #f8fafc;
+    --card-bg-end: #eef4fc;
     --sig-bg: #0d1b3e;
+    --sig-bg-end: #0f2244;
     --font-heading: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-body: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    --font-name: 'DM Serif Display', Georgia, serif;
 }
 
 * {
@@ -43,6 +45,12 @@ body {
     overflow: auto;
     padding: 20px;
     -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 678px) {
+    .page-screen {
+        padding: 0px;
+    }
 }
 
 body::before {

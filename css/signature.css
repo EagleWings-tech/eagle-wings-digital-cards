@@ -1,17 +1,67 @@
-/* Email signature – layout and components */
+/* Email signature – layout and components (dark elegant style) */
 #sig-wrap {
-    background: var(--sig-bg);
+    background: linear-gradient(180deg, #0d1b3e 0%, #0f2244 50%, #0d1b3e 100%);
     border-radius: 16px;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.4);
     max-width: 740px;
     width: 100%;
     overflow: hidden;
+    position: relative;
+}
+
+.sig-wrap-dark {
+    border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+.sig-deco {
+    height: 1px;
+    margin: 0 auto;
+    position: relative;
+    border: none;
+}
+
+.sig-deco-top {
+    width: 85%;
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    margin-bottom: 16px;
+}
+
+.sig-deco-top::before {
+    content: '◆';
+    position: absolute;
+    left: 50%;
+    top: -8px;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.6);
+    background: #0d1b3e;
+    padding: 0 6px;
+}
+
+.sig-deco-bottom {
+    width: 85%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.sig-deco-bottom::before {
+    content: '❧';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    background: #0d1b3e;
+    padding: 0 6px;
 }
 
 .sig-body {
     display: flex;
     align-items: stretch;
-    padding: 4px 0;
+    padding: 0 20px 16px;
 }
 
 .sig-left {
@@ -21,9 +71,9 @@
     justify-content: center;
     flex-shrink: 0;
     width: 200px;
-    padding: 20px 18px;
-    gap: 12px;
-    border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 20px;
+    gap: 16px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sig-logo-wrap {
@@ -34,15 +84,17 @@
 }
 
 .sig-logo-wrap img {
-    width: 82px;
-    height: 82px;
+    width: 72px;
+    height: 72px;
     object-fit: contain;
     display: block;
+    opacity: 0.95;
 }
 
 .sig-brand-line1 {
+    font-family: var(--font-name);
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 400;
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 2.5px;
@@ -52,7 +104,7 @@
 .sig-brand-line2 {
     font-size: 8.5px;
     font-weight: 600;
-    color: var(--brand-accent);
+    color: rgba(255, 255, 255, 0.75);
     text-transform: uppercase;
     letter-spacing: 2px;
     text-align: center;
@@ -63,10 +115,9 @@
     height: 118px;
     border-radius: 50%;
     padding: 3px;
-    background: conic-gradient(
-        #f09433 0%, #e6683c 20%, #dc2743 40%, #cc2366 60%, #bc1888 80%, #f09433 100%
-    );
+    background: rgba(255, 255, 255, 0.95);
     flex-shrink: 0;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .sig-photo {
@@ -74,37 +125,39 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--sig-bg);
+    border: 3px solid #0d1b3e;
     display: block;
 }
 
 .sig-right {
     flex: 1;
-    padding: 20px 24px;
+    padding: 16px 24px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.sig-top {}
+.sig-top {
+    margin-bottom: 4px;
+}
 
 .sig-name {
-    font-family: var(--font-heading);
-    font-size: 28px;
-    font-weight: 800;
+    font-family: var(--font-name);
+    font-size: 30px;
+    font-weight: 400;
     color: #ffffff;
-    line-height: 1.05;
-    margin-bottom: 6px;
+    line-height: 1.1;
+    margin-bottom: 8px;
     letter-spacing: -0.02em;
 }
 
 .sig-title {
     font-size: 11px;
     font-weight: 700;
-    color: var(--brand-accent);
+    color: rgba(255, 255, 255, 0.9);
     text-transform: uppercase;
     letter-spacing: 2.5px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .sig-title-underline {
@@ -115,15 +168,15 @@
 .sig-title-underline span:first-child {
     display: block;
     width: 28px;
-    height: 2.5px;
-    background: var(--brand-primary);
+    height: 2px;
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 2px;
 }
 
 .sig-title-underline span:last-child {
     display: block;
     width: 18px;
-    height: 2.5px;
+    height: 2px;
     background: var(--brand-accent);
     border-radius: 2px;
 }
@@ -134,20 +187,20 @@
     justify-content: space-evenly;
     flex: 1;
     padding-top: 12px;
-    gap: 2px;
+    gap: 6px;
 }
 
 .sig-contact-item {
     display: flex;
     align-items: center;
-    gap: 11px;
+    gap: 12px;
     text-decoration: none;
     color: #e8edf8;
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.3px;
-    padding: 6px 0;
-    line-height: 1.4;
+    padding: 8px 0;
+    line-height: 1.5;
     transition: color 0.2s ease;
 }
 
@@ -160,7 +213,7 @@
     width: 18px;
     height: 18px;
     fill: none;
-    stroke: #7a9cc0;
+    stroke: rgba(255, 255, 255, 0.8);
     stroke-width: 1.6;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -169,95 +222,93 @@
 }
 
 .sig-contact-item:hover {
-    color: var(--brand-accent);
+    color: #ffffff;
 }
 
 .sig-contact-item:hover .cicon svg {
-    stroke: var(--brand-accent);
+    stroke: #ffffff;
 }
 
 .sig-contact-item:focus-visible {
     outline: none;
-    color: var(--brand-accent);
+    color: #ffffff;
 }
 .sig-contact-item:focus-visible .cicon svg {
-    stroke: var(--brand-accent);
+    stroke: #ffffff;
 }
 
 .sig-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 24px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    background: rgba(0,0,0,0.22);
+    padding: 14px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.18);
 }
 
 .sig-footer-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 }
 
 .follow-label {
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 700;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255, 255, 255, 0.4);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     white-space: nowrap;
 }
 
 .sig-socials {
     display: flex;
-    gap: 7px;
+    gap: 8px;
     align-items: center;
 }
 
 .sig-socials .soc {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     flex-shrink: 0;
-    transition: transform 0.15s, opacity 0.15s;
+    transition: transform 0.2s ease;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.sig-socials .soc svg {
+    width: 16px;
+    height: 16px;
+    fill: #ffffff;
 }
 
 .sig-socials .soc:hover {
     transform: translateY(-2px);
-    opacity: 0.95;
+    border-color: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.08);
 }
+
 .sig-socials .soc:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px var(--brand-accent);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
 }
-
-.sig-socials .soc svg {
-    width: 15px;
-    height: 15px;
-    fill: #fff;
-}
-
-.sig-socials .soc.wa { background: #25D366; }
-.sig-socials .soc.fb { background: #1877F2; }
-.sig-socials .soc.ig { background: linear-gradient(135deg, #f09433 0%, #dc2743 50%, #bc1888 100%); }
-.sig-socials .soc.li { background: #0A66C2; }
-.sig-socials .soc.tt { background: #2a2a2a; }
-.sig-socials .soc.yt { background: #FF0000; }
 
 .sig-footer-brand {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 1px;
+    gap: 2px;
 }
 
 .sig-footer-brand .brand-name {
+    font-family: var(--font-name);
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 400;
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 2.5px;
@@ -266,7 +317,67 @@
 .sig-footer-brand .brand-sub {
     font-size: 8.5px;
     font-weight: 600;
-    color: var(--brand-accent);
+    color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     letter-spacing: 2.5px;
+}
+
+@media (max-width: 678px) {
+    .sig-body {
+        flex-direction: column;
+        padding: 0 16px 12px;
+    }
+    .sig-left {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 12px 16px;
+        flex-direction: row;
+        gap: 16px;
+        justify-content: center;
+    }
+    .sig-photo-ring {
+        width: 80px;
+        height: 80px;
+    }
+    .sig-right {
+        padding: 12px 16px 16px;
+    }
+    .sig-name {
+        font-size: 24px;
+    }
+    .sig-title {
+        font-size: 10px;
+    }
+    .sig-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        text-align: center;
+        padding: 12px 16px;
+    }
+    .sig-footer-brand {
+        align-items: center;
+    }
+}
+
+@media (max-width: 380px) {
+    .sig-body {
+        padding: 0 12px 10px;
+    }
+    .sig-left {
+        padding: 10px 12px;
+        flex-direction: column;
+    }
+    .sig-photo-ring {
+        width: 72px;
+        height: 72px;
+    }
+    .sig-name {
+        font-size: 20px;
+    }
+    .sig-footer-left {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }

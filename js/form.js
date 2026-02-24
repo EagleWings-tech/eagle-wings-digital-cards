@@ -187,6 +187,14 @@
                 });
             })
             .then(function (data) {
+                if (data.id) {
+                    try {
+                        var key = 'ew_created_card_ids';
+                        var ids = JSON.parse(localStorage.getItem(key) || '[]');
+                        if (ids.indexOf(data.id) === -1) ids.push(data.id);
+                        localStorage.setItem(key, JSON.stringify(ids));
+                    } catch (e) { /* ignore */ }
+                }
                 if (data.cardUrl) {
                     window.location.href = data.cardUrl;
                 } else if (data.id) {

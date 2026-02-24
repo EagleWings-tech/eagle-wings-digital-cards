@@ -1,41 +1,98 @@
 /* Business card – layout and components (theme in theme.css) */
 .card-container {
-    max-width: 480px;
+    max-width: 420px;
     width: 100%;
     position: relative;
     z-index: 1;
 }
 
 .card {
-    background: linear-gradient(160deg, var(--card-bg) 0%, var(--card-bg-end) 60%, #f5f8ff 100%);
-    border-radius: 24px;
-    padding: 26px 28px;
-    box-shadow: 0 32px 64px rgba(0, 30, 110, 0.2),
-                0 0 0 1px rgba(0, 48, 135, 0.08);
+    background: linear-gradient(165deg, var(--card-bg) 0%, var(--card-bg-end) 50%, #f0f6ff 100%);
+    border-radius: 20px;
+    padding: 32px 30px;
+    box-shadow: 0 24px 48px rgba(0, 30, 110, 0.12),
+                0 0 0 1px rgba(0, 0, 0, 0.04);
     text-align: center;
     position: relative;
     overflow: hidden;
     animation: fadeInUp 0.5s ease-out;
 }
 
-/* Top brand accent bar */
-.card::before {
+/* Dark elegant card (reference style) */
+.card-dark {
+    background: linear-gradient(180deg, #0d1b3e 0%, #0f2244 50%, #0d1b3e 100%);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    padding: 28px 24px 24px;
+    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.4);
+}
+
+.card-dark::before,
+.card-dark::after {
+    display: none;
+}
+
+.card-deco {
+    height: 1px;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.card-deco-top {
+    width: 80%;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.card-deco-top::before {
+    content: '◆';
+    position: absolute;
+    left: 50%;
+    top: -8px;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    background: #0d1b3e;
+    padding: 0 6px;
+}
+
+.card-deco-bottom {
+    width: 80%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    margin: 20px auto 0;
+    padding-bottom: 0;
+}
+
+.card-deco-bottom::before {
+    content: '◆';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    background: #0d1b3e;
+    padding: 0 6px;
+}
+
+/* Top brand accent bar (light card only) */
+.card:not(.card-dark)::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 7px;
-    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-primary-light) 50%, var(--brand-primary) 100%);
+    height: 5px;
+    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
+    border-radius: 20px 20px 0 0;
 }
 
-/* Subtle background pattern */
-.card::after {
+/* Subtle background pattern (light card only) */
+.card:not(.card-dark)::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(0, 48, 135, 0.06) 1px, transparent 0);
-    background-size: 24px 24px;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0, 48, 135, 0.04) 1px, transparent 0);
+    background-size: 28px 28px;
     pointer-events: none;
 }
 
@@ -59,60 +116,198 @@
     object-fit: contain;
 }
 
+/* Dark card: white serif name, white title */
+.card-dark .name,
+.card-dark .card-name {
+    color: #ffffff;
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.card-dark .badge,
+.card-dark .title {
+    color: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-bottom: 18px;
+}
+
+.card-dark .divider {
+    background: rgba(255, 255, 255, 0.35);
+    margin: 16px auto 20px;
+}
+
+/* Dark card: social icons as white outlines */
+.card-dark .social-links {
+    margin-bottom: 0;
+}
+
+.card-dark .social-icon {
+    background: transparent !important;
+    /* border: 2px solid rgba(255, 255, 255, 0.9); */
+}
+
+.card-dark .social-icon svg {
+    fill: #ffffff;
+}
+
+.card-dark .social-name {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.card-dark .social-link:hover .social-icon {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.card-dark .social-link:hover .social-name {
+    color: #ffffff;
+}
+
+/* Dark card: contact buttons – white bg, white border, dark blue text */
+.card-dark .contact-btn {
+    background: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    color: #0d1b3e;
+    /* margin-bottom: 10px; */
+}
+
+.card-dark .contact-btn .contact-icon {
+    background: transparent;
+}
+
+.card-dark .contact-btn .contact-icon svg {
+    fill: #0d1b3e;
+}
+
+.card-dark .contact-btn .contact-label {
+    color: #0d1b3e;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+}
+
+.card-dark .contact-btn .contact-text {
+    color: #0d1b3e;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.card-dark .contact-btn:hover {
+    background: #f0f4f8;
+    border-color: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-dark .location.contact-btn .location-text {
+    color: #0d1b3e;
+}
+
+/* Dark card: WhatsApp CTA – keep green but with white border */
+.card-dark .cta-button {
+    border: 2px solid rgba(255, 255, 255, 0.9);
+}
+
+/* Card footer: logo + brand lines */
+.card-footer {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: none;
+}
+
+.card-footer-logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    margin-bottom: 8px;
+    opacity: 0.95;
+}
+
+.card-footer-brand1 {
+    font-family: var(--font-name);
+    font-size: 12px;
+    font-weight: 400;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-bottom: 2px;
+}
+
+.card-footer-brand2 {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
 .badge {
     display: inline-block;
-    padding: 8px 16px;
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
-    color: #ffffff;
+    padding: 9px 18px;
+    background: rgba(0, 87, 184, 0.08);
+    color: var(--brand-primary-light);
     border-radius: 20px;
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
     position: relative;
     z-index: 1;
-    box-shadow: 0 2px 8px rgba(0, 48, 135, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 87, 184, 0.2);
 }
 
 .profile-photo {
-    width: 112px;
-    height: 112px;
+    width: 116px;
+    height: 116px;
     border-radius: 50%;
-    margin: 0 auto 14px;
-    border: 4px solid #fff;
-    box-shadow: 0 0 0 4px var(--brand-primary),
-                0 8px 28px rgba(0, 48, 135, 0.28),
-                0 0 0 12px rgba(0, 48, 135, 0.06);
+    margin: 0 auto 18px;
+    border: 3px solid var(--brand-primary);
+    box-shadow: 0 12px 28px rgba(0, 48, 135, 0.2);
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: block;
     position: relative;
     z-index: 1;
 }
 
-.profile-photo:hover {
-    transform: scale(1.04);
+.card-dark .profile-photo {
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-.name {
-    font-family: var(--font-heading);
-    font-size: 28px;
-    font-weight: 700;
+.profile-photo:hover {
+    transform: scale(1.03);
+    box-shadow: 0 16px 36px rgba(0, 48, 135, 0.25);
+}
+
+.card-dark .profile-photo:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.name,
+.card-name {
+    font-family: var(--font-name);
+    font-size: 31px;
+    font-weight: 400;
     color: var(--text-primary);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     letter-spacing: -0.02em;
     line-height: 1.2;
 }
 
 .title {
-    font-size: 14px;
-    color: #0057b8;
+    font-size: 13px;
+    color: var(--brand-primary-light);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 6px;
+    letter-spacing: 2.2px;
+    margin-bottom: 8px;
 }
 
 .company {
@@ -123,31 +318,35 @@
 }
 
 .divider {
-    width: 64px;
-    height: 3px;
+    width: 52px;
+    height: 2px;
     background: linear-gradient(90deg, transparent, var(--brand-primary), transparent);
-    margin: 12px auto;
+    margin: 14px auto 18px;
     border-radius: 2px;
 }
 
 .contact-grid {
     display: grid;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+.card-dark .contact-grid {
     text-align: left;
 }
 
 .contact-item {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
+    padding: 10px;
     background: #ffffff;
     border-radius: 14px;
     text-decoration: none;
     color: #2d3e52;
-    transition: all 0.25s ease;
-    border: 1px solid rgba(0, 48, 135, 0.08);
-    gap: 14px;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid rgba(0, 48, 135, 0.06);
+    gap: 10px;
     animation: fadeInUp 0.4s ease-out backwards;
 }
 .contact-item:nth-child(1) { animation-delay: 0.05s; }
@@ -156,14 +355,17 @@
 .contact-item:nth-child(4) { animation-delay: 0.2s; }
 
 .contact-item:hover {
-    background: #fff;
-    border-color: var(--brand-primary);
-    transform: translateX(4px);
-    box-shadow: 0 6px 16px rgba(0, 48, 135, 0.12);
+    background: #f8fafc;
+    border-color: rgba(0, 48, 135, 0.12);
+    box-shadow: 0 6px 20px rgba(0, 48, 135, 0.08);
 }
 .contact-item:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--brand-primary);
+}
+
+.card-dark .contact-item:focus-visible {
+    box-shadow: 0 0 0 2px #0d1b3e, 0 0 0 4px #ffffff;
 }
 
 .contact-icon {
@@ -200,6 +402,7 @@
     font-size: 14px;
     font-weight: 600;
     color: var(--text-primary);
+    text-transform: uppercase;
 }
 
 .section-label {
@@ -214,10 +417,10 @@
 
 .location {
     background: #ffffff;
-    padding: 12px 16px;
+    padding: 10px;
     border-radius: 14px;
-    margin-bottom: 12px;
-    border: 1px solid rgba(0, 48, 135, 0.08);
+    margin-bottom: 14px;
+    border: 1px solid rgba(0, 48, 135, 0.06);
     border-left: 4px solid var(--brand-primary);
     display: flex;
     align-items: flex-start;
@@ -226,13 +429,13 @@
     text-decoration: none;
     cursor: pointer;
     color: inherit;
-    transition: all 0.25s ease;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .location:hover {
-    border-color: rgba(0, 48, 135, 0.15);
+    background: #f8fafc;
+    border-color: rgba(0, 48, 135, 0.12);
     border-left-color: var(--brand-primary-light);
-    box-shadow: 0 6px 16px rgba(0, 48, 135, 0.12);
-    background: linear-gradient(135deg, #e8f0fb 0%, #dde8f5 100%);
+    box-shadow: 0 6px 20px rgba(0, 48, 135, 0.08);
 }
 .location:focus-visible {
     outline: none;
@@ -256,7 +459,7 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: 14px 24px;
+    padding: 15px 24px;
     background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
     color: #ffffff;
     border: none;
@@ -265,13 +468,14 @@
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    margin-bottom: 16px;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+    margin-bottom: 18px;
+    margin-top: 50px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.3);
 }
 .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.45);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
     color: #ffffff;
 }
 .cta-button:focus-visible {
@@ -287,19 +491,19 @@
 }
 
 .social-section-label {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     text-align: center;
 }
 
 .social-links {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 14px;
     flex-wrap: wrap;
 }
 
@@ -309,11 +513,11 @@
     align-items: center;
     gap: 6px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: transform 0.25s ease;
 }
 
 .social-link:hover {
-    transform: translateY(-4px) scale(1.05);
+    transform: translateY(-3px);
 }
 .social-link:focus-visible {
     outline: none;
@@ -358,22 +562,91 @@
 
 @media (max-width: 480px) {
     .card {
-        padding: 28px 20px;
-        margin: 0 4px;
+        padding: 28px 22px;
     }
-    .name {
-        font-size: 26px;
+    .card-dark {
+        padding: 24px 20px 20px;
+    }
+    .name,
+    .card-name {
+        font-size: 27px;
         hyphens: auto;
+    }
+    .card-dark .name,
+    .card-dark .card-name {
+        font-size: 25px;
     }
     .profile-photo {
         width: 108px;
         height: 108px;
     }
     .contact-item {
-        padding: 10px 14px;
+        padding: 12px 16px;
     }
     .social-icon {
         width: 42px;
         height: 42px;
+    }
+}
+
+@media (max-width: 400px) {
+    .card {
+        padding: 20px 14px;
+    }
+    .card-dark {
+        padding: 18px 14px 16px;
+    }
+    .name,
+    .card-name {
+        font-size: 22px;
+    }
+    .card-dark .name,
+    .card-dark .card-name {
+        font-size: 20px;
+    }
+    .profile-photo {
+        width: 88px;
+        height: 88px;
+        margin-bottom: 12px;
+    }
+    .card-dark .badge,
+    .card-dark .title {
+        font-size: 10px;
+        letter-spacing: 1.5px;
+    }
+    .contact-item {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+    .contact-icon {
+        width: 36px;
+        height: 36px;
+    }
+    .contact-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+    .contact-text {
+        font-size: 12px;
+    }
+    .card-dark .contact-btn .contact-text {
+        font-size: 12px;
+    }
+    .social-icon {
+        width: 38px;
+        height: 38px;
+    }
+    .social-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+    .cta-button {
+        padding: 12px 16px;
+        font-size: 13px;
+        margin-top: 24px;
+    }
+    .cta-button svg {
+        width: 18px;
+        height: 18px;
     }
 }
