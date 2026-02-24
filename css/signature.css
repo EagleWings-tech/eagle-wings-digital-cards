@@ -1,8 +1,8 @@
-/* Email signature – layout and components (dark elegant style) */
+/* Email signature – layout and components (dashboard-inspired dark, golden touch) */
 #sig-wrap {
-    background: linear-gradient(180deg, #0d1b3e 0%, #0f2244 50%, #0d1b3e 100%);
+    background: linear-gradient(180deg, var(--sig-bg) 0%, var(--sig-bg-end) 50%, var(--sig-bg) 100%);
     border-radius: 16px;
-    box-shadow: 0 24px 56px rgba(0,0,0,0.4);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.4), inset 0 2px 0 0 var(--brand-accent);
     max-width: 740px;
     width: 100%;
     overflow: hidden;
@@ -10,52 +10,7 @@
 }
 
 .sig-wrap-dark {
-    border: 2px solid rgba(255, 255, 255, 0.9);
-}
-
-.sig-deco {
-    height: 1px;
-    margin: 0 auto;
-    position: relative;
-    border: none;
-}
-
-.sig-deco-top {
-    width: 85%;
-    border-top: 1px solid rgba(255, 255, 255, 0.35);
-    margin-bottom: 16px;
-}
-
-.sig-deco-top::before {
-    content: '◆';
-    position: absolute;
-    left: 50%;
-    top: -8px;
-    transform: translateX(-50%);
-    font-size: 9px;
-    color: rgba(255, 255, 255, 0.6);
-    background: #0d1b3e;
-    padding: 0 6px;
-}
-
-.sig-deco-bottom {
-    width: 85%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.sig-deco-bottom::before {
-    content: '❧';
-    position: absolute;
-    left: 50%;
-    bottom: -10px;
-    transform: translateX(-50%);
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.45);
-    background: #0d1b3e;
-    padding: 0 6px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .sig-body {
@@ -74,6 +29,19 @@
     padding: 16px 20px;
     gap: 16px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.sig-left::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    right: -1px;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, var(--brand-accent), transparent);
+    border-radius: 2px;
+    opacity: 0.8;
 }
 
 .sig-logo-wrap {
@@ -115,7 +83,7 @@
     height: 118px;
     border-radius: 50%;
     padding: 3px;
-    background: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(135deg, var(--brand-accent) 0%, rgba(255, 255, 255, 0.95) 50%, var(--brand-accent) 100%);
     flex-shrink: 0;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
@@ -125,7 +93,7 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #0d1b3e;
+    border: 3px solid var(--sig-bg);
     display: block;
 }
 
@@ -169,13 +137,13 @@
     display: block;
     width: 28px;
     height: 2px;
-    background: rgba(255, 255, 255, 0.7);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.6), var(--brand-accent));
     border-radius: 2px;
 }
 
 .sig-title-underline span:last-child {
     display: block;
-    width: 18px;
+    width: 24px;
     height: 2px;
     background: var(--brand-accent);
     border-radius: 2px;
@@ -244,6 +212,18 @@
     padding: 14px 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.18);
+    position: relative;
+}
+
+.sig-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 24px;
+    right: 24px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--brand-accent), transparent);
+    border-radius: 2px;
 }
 
 .sig-footer-left {
@@ -309,7 +289,7 @@
     font-family: var(--font-name);
     font-size: 12px;
     font-weight: 400;
-    color: #ffffff;
+    color: var(--brand-accent);
     text-transform: uppercase;
     letter-spacing: 2.5px;
 }

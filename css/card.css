@@ -18,12 +18,12 @@
     animation: fadeInUp 0.5s ease-out;
 }
 
-/* Dark elegant card (reference style) */
+/* Dark elegant card (dashboard-inspired) – slight golden touch */
 .card-dark {
-    background: linear-gradient(180deg, #0d1b3e 0%, #0f2244 50%, #0d1b3e 100%);
-    border: 2px solid rgba(255, 255, 255, 0.9);
+    background: linear-gradient(180deg, var(--sig-bg) 0%, var(--sig-bg-end) 50%, var(--sig-bg) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     padding: 28px 24px 24px;
-    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.4), inset 0 2px 0 0 var(--brand-accent);
 }
 
 .card-dark::before,
@@ -51,8 +51,13 @@
     transform: translateX(-50%);
     font-size: 10px;
     color: rgba(255, 255, 255, 0.7);
-    background: #0d1b3e;
+    background: var(--sig-bg);
     padding: 0 6px;
+}
+
+.card:not(.card-dark) .card-deco-top::before {
+    color: var(--brand-accent);
+    background: var(--card-bg);
 }
 
 .card-deco-bottom {
@@ -70,11 +75,21 @@
     transform: translateX(-50%);
     font-size: 12px;
     color: rgba(255, 255, 255, 0.5);
-    background: #0d1b3e;
+    background: var(--sig-bg);
     padding: 0 6px;
 }
 
-/* Top brand accent bar (light card only) */
+.card-dark .card-deco-top::before,
+.card-dark .card-deco-bottom::before {
+    color: var(--brand-accent);
+}
+
+.card:not(.card-dark) .card-deco-bottom::before {
+    color: var(--brand-accent);
+    background: var(--card-bg);
+}
+
+/* Top brand accent bar (light card only) – cyan with a slight golden touch */
 .card:not(.card-dark)::before {
     content: '';
     position: absolute;
@@ -82,7 +97,7 @@
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
+    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-primary-light) 50%, var(--brand-accent) 100%);
     border-radius: 20px 20px 0 0;
 }
 
@@ -138,8 +153,9 @@
 }
 
 .card-dark .divider {
-    background: rgba(255, 255, 255, 0.35);
+    background: linear-gradient(90deg, transparent, var(--brand-accent), transparent);
     margin: 16px auto 20px;
+    opacity: 0.9;
 }
 
 /* Dark card: social icons as white outlines */
@@ -168,12 +184,11 @@
     color: #ffffff;
 }
 
-/* Dark card: contact buttons – white bg, white border, dark blue text */
+/* Dark card: contact buttons – white bg, dark text (dashboard style) */
 .card-dark .contact-btn {
     background: #ffffff;
-    border: 2px solid rgba(255, 255, 255, 0.95);
-    color: #0d1b3e;
-    /* margin-bottom: 10px; */
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: var(--bg-main);
 }
 
 .card-dark .contact-btn .contact-icon {
@@ -181,30 +196,30 @@
 }
 
 .card-dark .contact-btn .contact-icon svg {
-    fill: #0d1b3e;
+    fill: var(--bg-main);
 }
 
 .card-dark .contact-btn .contact-label {
-    color: #0d1b3e;
+    color: var(--bg-main);
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 1.5px;
 }
 
 .card-dark .contact-btn .contact-text {
-    color: #0d1b3e;
+    color: var(--bg-main);
     font-weight: 600;
     font-size: 13px;
 }
 
 .card-dark .contact-btn:hover {
-    background: #f0f4f8;
-    border-color: #ffffff;
+    background: var(--text-secondary-dark);
+    border-color: rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-dark .location.contact-btn .location-text {
-    color: #0d1b3e;
+    color: var(--bg-main);
 }
 
 /* Dark card: WhatsApp CTA – keep green but with white border */
@@ -320,7 +335,7 @@
 .divider {
     width: 52px;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--brand-primary), transparent);
+    background: linear-gradient(90deg, transparent, var(--brand-accent), transparent);
     margin: 14px auto 18px;
     border-radius: 2px;
 }
@@ -365,7 +380,7 @@
 }
 
 .card-dark .contact-item:focus-visible {
-    box-shadow: 0 0 0 2px #0d1b3e, 0 0 0 4px #ffffff;
+    box-shadow: 0 0 0 2px var(--bg-main), 0 0 0 4px #ffffff;
 }
 
 .contact-icon {

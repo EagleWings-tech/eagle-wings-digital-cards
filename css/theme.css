@@ -2,15 +2,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
 
 :root {
-    --brand-primary: #003087;
-    --brand-primary-light: #0057b8;
-    --brand-accent: #D4AF37;
+    /* Dashboard-inspired dark theme – surfaces */
+    --bg-main: #1A1D2C;
+    --bg-card: #212535;
+    --bg-card-alt: #282C3F;
+    --sig-bg: #1A1D2C;
+    --sig-bg-end: #212535;
+    /* Brand & accents */
+    --brand-primary: #00BCD4;
+    --brand-primary-light: #00C8F5;
+    --brand-accent: #FFC107;
+    --accent-cyan: #00BCD4;
+    --accent-gold: #FFC107;
+    --accent-red: #F44336;
+    --accent-green: #4CAF50;
+    --accent-purple: #9C27B0;
+    /* Text – light theme (cards/forms) */
     --text-primary: #001a6e;
     --text-muted: #5a6c82;
+    /* Text – dark theme */
+    --text-primary-dark: #FFFFFF;
+    --text-secondary-dark: #E0E0E0;
+    --text-muted-dark: #A0A0A0;
+    /* Light card (unchanged) */
     --card-bg: #f8fafc;
     --card-bg-end: #eef4fc;
-    --sig-bg: #0d1b3e;
-    --sig-bg-end: #0f2244;
     --font-heading: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-body: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     --font-name: 'DM Serif Display', Georgia, serif;
@@ -29,7 +45,7 @@ html {
 
 body {
     font-family: var(--font-body);
-    background: linear-gradient(160deg, #001a6e 0%, #003087 40%, #0057b8 100%);
+    background: var(--bg-main);
     height: 100%;
     min-height: 100vh;
     margin: 0;
@@ -60,7 +76,7 @@ body::before {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255, 0.03) 1px, transparent 1px);
+    background: radial-gradient(circle, rgba(255,255,255, 0.04) 1px, transparent 1px);
     background-size: 50px 50px;
     animation: drift 60s linear infinite;
     pointer-events: none;

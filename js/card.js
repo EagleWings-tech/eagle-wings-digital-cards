@@ -27,7 +27,7 @@
             else return DEMO_DATA;
             return;
         }
-        var apiBase = (typeof window.API_BASE !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
+        var apiBase = 'https://eagle-wings-backend.onrender.com';
         fetch(apiBase + '/api/identity/' + encodeURIComponent(id))
             .then(function (res) {
                 if (res.status === 404) {

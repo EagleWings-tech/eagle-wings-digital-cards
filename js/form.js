@@ -166,7 +166,7 @@
                 tiktok: document.getElementById('tiktok').value.trim(),
                 youtube: document.getElementById('youtube').value.trim()
             };
-            var apiBase = (typeof window.API_BASE !== 'undefined' && window.API_BASE) ? window.API_BASE : '';
+            var apiBase = 'https://eagle-wings-backend.onrender.com';
             return fetch(apiBase + '/api/identity', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
