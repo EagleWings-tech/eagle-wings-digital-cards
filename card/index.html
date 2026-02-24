@@ -158,6 +158,38 @@
             border-bottom-color: var(--accent, #4a90d9);
         }
 
+        .card-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .card-loading-spinner {
+            width: 44px;
+            height: 44px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top-color: var(--brand-accent);
+            border-radius: 50%;
+            animation: card-load-spin 0.9s linear infinite;
+        }
+
+        .card-loading-text {
+            margin-top: 18px;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes card-load-spin {
+            to { transform: rotate(360deg); }
+        }
+
         @media (max-width: 678px) {
             .page-wrap {
                 padding: 16px 5px 32px;
@@ -199,6 +231,11 @@
                 <p><a href="../form.html">Create your business identity</a></p>
             </div>
 
+            <div id="cardLoading" class="card-loading" style="display: none;" aria-live="polite" aria-busy="true">
+                <div class="card-loading-spinner" aria-hidden="true"></div>
+                <p class="card-loading-text">Loading your card…</p>
+            </div>
+
             <div id="cardView" style="display: none;">
                 <div class="card-share-links" aria-label="Share links">
                     <section class="card-share-bar">
@@ -229,6 +266,11 @@
                     <div class="card-container" id="business-card">
                         <div class="card card-dark">
                             <div class="card-deco card-deco-top" aria-hidden="true"></div>
+                            <div class="brand-header">
+                                <img id="card-logo" src="../images/png_logo-golden.png" alt="Eagle Wings" class="brand-logo">
+                                <div class="card-header-brand1" id="card-header-brand1">EAGLE WINGS</div>
+                                <div class="card-header-brand2" id="card-header-brand2">BUSINESS CONSULTANT</div>
+                            </div>
                             <img id="card-photo" src="" alt="" class="profile-photo">
                             <h1 class="name card-name" id="card-name"></h1>
                             <div class="badge" id="card-title"></div>
@@ -283,8 +325,7 @@
                                 </svg>
                                 Message us on WhatsApp
                             </a>
-                            <div class="card-footer">
-                                <img id="card-logo" src="" alt="" class="card-footer-logo" style="display: none;">
+                            <div class="card-footer" id="card-footer">
                                 <div class="card-footer-brand1" id="card-brand1"></div>
                                 <div class="card-footer-brand2" id="card-brand2"></div>
                             </div>
@@ -302,7 +343,7 @@
                                     <img id="sig-photo" src="" alt="" class="sig-photo">
                                 </div>
                                 <div class="sig-logo-wrap">
-                                    <img id="sig-logo" src="" alt="" style="display: none;">
+                                    <img id="sig-logo" src="../images/png_logo-golden.png" alt="Eagle Wings">
                                     <div class="sig-brand-line1" id="sig-brand1"></div>
                                     <div class="sig-brand-line2" id="sig-brand2"></div>
                                 </div>

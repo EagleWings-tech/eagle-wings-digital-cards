@@ -62,22 +62,26 @@
         el.style.display = value ? '' : 'none';
     }
 
+    var DEFAULT_LOGO = '../images/logo-img.png';
+    var DEFAULT_BRAND1 = 'EAGLE WINGS';
+    var DEFAULT_BRAND2 = 'BUSINESS CONSULTANT';
+
     function fillCard(data) {
         var logo = document.getElementById('card-logo');
         var photo = document.getElementById('card-photo');
         setAttr(photo, 'src', data.profilePhotoUrl);
         setAttr(photo, 'alt', data.fullName);
-        if (data.logoUrl) {
-            setAttr(logo, 'src', data.logoUrl);
-            logo.style.display = 'block';
-        }
+        setAttr(logo, 'src', data.logoUrl || DEFAULT_LOGO);
+        setAttr(logo, 'alt', data.brandLine1 || DEFAULT_BRAND1);
+        setText(document.getElementById('card-header-brand1'), data.brandLine1 || DEFAULT_BRAND1);
+        setText(document.getElementById('card-header-brand2'), data.brandLine2 || DEFAULT_BRAND2);
         setText(document.getElementById('card-name'), data.fullName);
         setText(document.getElementById('card-title'), data.jobTitle);
         setText(document.getElementById('card-brand1'), data.brandLine1 || '');
         setText(document.getElementById('card-brand2'), data.brandLine2 || '');
-        var footer = document.querySelector('.card-footer');
+        var footer = document.getElementById('card-footer');
         if (footer) {
-            var hasFooter = data.logoUrl || (data.brandLine1 && data.brandLine1.trim()) || (data.brandLine2 && data.brandLine2.trim());
+            var hasFooter = (data.brandLine1 && data.brandLine1.trim()) || (data.brandLine2 && data.brandLine2.trim());
             footer.style.display = hasFooter ? 'block' : 'none';
         }
         setText(document.getElementById('card-mobile'), data.mobile);
@@ -132,16 +136,14 @@
         setAttr(document.getElementById('sig-photo'), 'src', data.profilePhotoUrl);
         setAttr(document.getElementById('sig-photo'), 'alt', data.fullName);
         var sigLogo = document.getElementById('sig-logo');
-        if (data.logoUrl) {
-            setAttr(sigLogo, 'src', data.logoUrl);
-            sigLogo.style.display = 'block';
-        }
-        setText(document.getElementById('sig-brand1'), data.brandLine1);
-        setText(document.getElementById('sig-brand2'), data.brandLine2);
+        setAttr(sigLogo, 'src', data.logoUrl || DEFAULT_LOGO);
+        sigLogo.style.display = 'block';
+        setText(document.getElementById('sig-brand1'), data.brandLine1 || DEFAULT_BRAND1);
+        setText(document.getElementById('sig-brand2'), data.brandLine2 || DEFAULT_BRAND2);
         setText(document.getElementById('sig-name'), data.fullName);
         setText(document.getElementById('sig-title'), data.jobTitle);
-        setText(document.getElementById('sig-footer-brand1'), data.brandLine1);
-        setText(document.getElementById('sig-footer-brand2'), data.brandLine2);
+        setText(document.getElementById('sig-footer-brand1'), data.brandLine1 || DEFAULT_BRAND1);
+        setText(document.getElementById('sig-footer-brand2'), data.brandLine2 || DEFAULT_BRAND2);
         var contacts = document.getElementById('sig-contacts');
         contacts.innerHTML = '';
         if (data.mobile) {
@@ -195,7 +197,11 @@
     } catch (e) { createdIds = []; }
     var isCreator = id !== 'demo' && createdIds.indexOf(id) !== -1;
 
+    var loadingEl = document.getElementById('cardLoading');
+    if (id !== 'demo' && loadingEl) loadingEl.style.display = 'flex';
+
     getData(id, function (data) {
+        if (loadingEl) loadingEl.style.display = 'none';
         if (!data) {
             document.getElementById('notFound').style.display = 'block';
         } else {
@@ -220,6 +226,10 @@
             if (isStandalone) {
                 if (shareLinksEl) shareLinksEl.style.display = 'none';
                 if (tabBarEl) tabBarEl.style.display = 'none';
+                var cardH2 = cardSection ? cardSection.querySelector('h2') : null;
+                var sigH2 = sigSection ? sigSection.querySelector('h2') : null;
+                if (cardH2) cardH2.style.display = 'none';
+                if (sigH2) sigH2.style.display = 'none';
                 if (view === 'card') {
                     if (cardSection) cardSection.style.display = 'block';
                     if (sigSection) sigSection.style.display = 'none';
