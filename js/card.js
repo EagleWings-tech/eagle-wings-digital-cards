@@ -186,21 +186,17 @@
     var GOLD = '#FFC107';
     /* Gmail-safe: minimal 1-color outline icons (Icons8 material-outlined, gold) */
     var SIG_ICON_BASE = 'https://img.icons8.com/material-outlined/24/FFC107/';
-    var SIG_ICON_PHONE = '<img src="' + SIG_ICON_BASE + 'phone.png" width="14" height="14" alt="" style="display:block;border:0;">';
-    var SIG_ICON_EMAIL = '<img src="' + SIG_ICON_BASE + 'new-post.png" width="14" height="14" alt="" style="display:block;border:0;">';
-    var SIG_ICON_WEB = '<img src="' + SIG_ICON_BASE + 'globe.png" width="14" height="14" alt="" style="display:block;border:0;">';
-    var SIG_ICON_PIN = '<img src="' + SIG_ICON_BASE + 'marker.png" width="14" height="14" alt="" style="display:block;border:0;">';
-    /* Gmail-safe: minimal 1-color outline social icons, wrapped in table for center alignment */
+    var SIG_ICON_PHONE = '<img src="' + SIG_ICON_BASE + 'phone.png" width="14" height="14" alt="" style="display:block;border:0">';
+    var SIG_ICON_EMAIL = '<img src="' + SIG_ICON_BASE + 'new-post.png" width="14" height="14" alt="" style="display:block;border:0">';
+    var SIG_ICON_WEB = '<img src="' + SIG_ICON_BASE + 'globe.png" width="14" height="14" alt="" style="display:block;border:0">';
+    var SIG_ICON_PIN = '<img src="' + SIG_ICON_BASE + 'marker.png" width="14" height="14" alt="" style="display:block;border:0">';
+    /* Gmail-safe: minimal social icons (compact markup to stay under Gmail signature limit) */
     var SIG_SOC_BASE = 'https://img.icons8.com/material-outlined/24/ffffff/';
-    function sigSocImg(src, alt) {
-        return '<table cellpadding="0" cellspacing="0" border="0" width="36" height="36" style="border-collapse:collapse;"><tr><td align="center" valign="middle" style="padding:0;"><img src="' + src + '" width="16" height="16" alt="' + alt + '" style="display:block;margin:0 auto;border:0;"></td></tr></table>';
+    function sigSocLink(href, iconFile, title) {
+        var src = SIG_SOC_BASE + iconFile;
+        var s = 'display:inline-block;width:36px;height:36px;border:1px solid #FFC107;border-radius:10px;text-align:center;line-height:36px;margin-right:6px;';
+        return '<a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" style="' + s + '" title="' + escapeHtml(title) + '"><img src="' + src + '" width="16" height="16" alt="' + escapeHtml(title) + '" style="display:block;margin:0 auto;border:0"></a>';
     }
-    var SIG_SOC_WA = sigSocImg(SIG_SOC_BASE + 'whatsapp.png', 'WhatsApp');
-    var SIG_SOC_FB = sigSocImg(SIG_SOC_BASE + 'facebook-f.png', 'Facebook');
-    var SIG_SOC_IG = sigSocImg(SIG_SOC_BASE + 'instagram-new.png', 'Instagram');
-    var SIG_SOC_LI = sigSocImg(SIG_SOC_BASE + 'linkedin.png', 'LinkedIn');
-    var SIG_SOC_TT = sigSocImg(SIG_SOC_BASE + 'tiktok.png', 'TikTok');
-    var SIG_SOC_YT = sigSocImg(SIG_SOC_BASE + 'youtube-play.png', 'YouTube');
 
     function buildEmailSignatureHtml(data, cardUrl) {
         var photoUrl = toAbsoluteUrl(data.profilePhotoUrl || '');
@@ -208,7 +204,8 @@
         var brand1 = escapeHtml(data.brandLine1 || DEFAULT_BRAND1);
         var brand2 = escapeHtml(data.brandLine2 || DEFAULT_BRAND2);
         var cardUrlEsc = escapeHtml(cardUrl || '#');
-        var businessCardLink = '<a href="' + cardUrlEsc + '" target="_blank" rel="noopener noreferrer" style="color:#FFC107;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Business card</a>';
+        var cardLnkStyle = 'color:#FFC107;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase';
+        var businessCardLink = '<a href="' + cardUrlEsc + '" target="_blank" rel="noopener noreferrer" style="' + cardLnkStyle + '">Business card</a>';
         var name = escapeHtml(data.fullName || '');
         var title = escapeHtml(data.jobTitle || '');
         var mobile = (data.mobile || '').replace(/\s/g, '');
@@ -218,30 +215,33 @@
         var webDisplay = website ? website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '';
         var addrShort = (data.officeAddress || '').split('\n')[0] || '';
         var mapsUrl = (data.mapsLink || '#');
-        var linkStyle = 'color:#e8edf8;text-decoration:none;font-size:13px;';
-        var linkStyleUpper = 'color:#e8edf8;text-decoration:none;font-size:12px;text-transform:uppercase;';
+        var lnk = 'color:#e8edf8;text-decoration:none;font-size:13px';
+        var lnkUp = 'color:#e8edf8;text-decoration:none;font-size:12px;text-transform:uppercase';
+        var ic = 'vertical-align:middle;width:22px;padding:4px 6px 4px 0';
+        var pt = 'padding:4px 0';
         var contactRows = '';
-        if (mobile) contactRows += '<tr><td style="vertical-align:middle;width:22px;padding:4px 6px 4px 0;">' + SIG_ICON_PHONE + '</td><td style="padding:4px 0;"><a href="tel:' + mobile + '" style="' + linkStyle + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(data.mobile || '') + '</a></td></tr>';
-        if (email) contactRows += '<tr><td style="vertical-align:middle;width:22px;padding:4px 6px 4px 0;">' + SIG_ICON_EMAIL + '</td><td style="padding:4px 0;"><a href="mailto:' + escapeHtml(email) + '" style="' + linkStyleUpper + '" target="_blank" rel="noopener noreferrer">' + emailEsc + '</a></td></tr>';
-        if (website) contactRows += '<tr><td style="vertical-align:middle;width:22px;padding:4px 6px 4px 0;">' + SIG_ICON_WEB + '</td><td style="padding:4px 0;"><a href="' + escapeHtml(website) + '" style="' + linkStyleUpper + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(webDisplay) + '</a></td></tr>';
-        if (addrShort) contactRows += '<tr><td style="vertical-align:middle;width:22px;padding:4px 6px 4px 0;">' + SIG_ICON_PIN + '</td><td style="padding:4px 0;"><a href="' + escapeHtml(mapsUrl) + '" style="' + linkStyle + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(addrShort) + '</a></td></tr>';
-        var photoImg = photoUrl ? '<img src="' + photoUrl + '" alt="" width="80" height="80" style="display:block;margin:0 auto;border-radius:50%;border:3px solid #1A1D2C;">' : '';
-        var logoImg = '<img src="https://digital.eaglewingsuae.com/images/logo-img.png" alt="Eagle Wings" width="56" style="display:block;margin:0 auto;">';
-        var socBorder = 'border:1px solid #FFC107;';
+        if (mobile) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_PHONE + '</td><td style="' + pt + '"><a href="tel:' + mobile + '" style="' + lnk + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(data.mobile || '') + '</a></td></tr>';
+        if (email) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_EMAIL + '</td><td style="' + pt + '"><a href="mailto:' + escapeHtml(email) + '" style="' + lnkUp + '" target="_blank" rel="noopener noreferrer">' + emailEsc + '</a></td></tr>';
+        if (website) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_WEB + '</td><td style="' + pt + '"><a href="' + escapeHtml(website) + '" style="' + lnkUp + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(webDisplay) + '</a></td></tr>';
+        if (addrShort) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_PIN + '</td><td style="' + pt + '"><a href="' + escapeHtml(mapsUrl) + '" style="' + lnk + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(addrShort) + '</a></td></tr>';
+        var photoImg = photoUrl ? '<img src="' + photoUrl + '" alt="" width="80" height="80" style="display:block;margin:0 auto;border-radius:50%;border:3px solid #1A1D2C">' : '';
+        var logoImg = '<img src="https://digital.eaglewingsuae.com/images/logo-img.png" alt="Eagle Wings" width="56" style="display:block;margin:0 auto">';
         var socialLinks = '';
         var waNum = (data.whatsapp || data.mobile || '').replace(/\D/g, '');
-        if (waNum) socialLinks += '<a href="https://wa.me/' + waNum + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="WhatsApp">' + SIG_SOC_WA + '</a>';
-        if (data.facebook) socialLinks += '<a href="' + escapeHtml(data.facebook) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="Facebook">' + SIG_SOC_FB + '</a>';
-        if (data.instagram) socialLinks += '<a href="' + escapeHtml(data.instagram) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="Instagram">' + SIG_SOC_IG + '</a>';
-        if (data.linkedin) socialLinks += '<a href="' + escapeHtml(data.linkedin) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="LinkedIn">' + SIG_SOC_LI + '</a>';
-        if (data.tiktok) socialLinks += '<a href="' + escapeHtml(data.tiktok) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="TikTok">' + SIG_SOC_TT + '</a>';
-        if (data.youtube) socialLinks += '<a href="' + escapeHtml(data.youtube) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;" title="YouTube">' + SIG_SOC_YT + '</a>';
+        if (waNum) socialLinks += sigSocLink('https://wa.me/' + waNum, 'whatsapp.png', 'WhatsApp');
+        if (data.facebook) socialLinks += sigSocLink(data.facebook, 'facebook-f.png', 'Facebook');
+        if (data.instagram) socialLinks += sigSocLink(data.instagram, 'instagram-new.png', 'Instagram');
+        if (data.linkedin) socialLinks += sigSocLink(data.linkedin, 'linkedin.png', 'LinkedIn');
+        if (data.tiktok) socialLinks += sigSocLink(data.tiktok, 'tiktok.png', 'TikTok');
+        if (data.youtube) socialLinks += sigSocLink(data.youtube, 'youtube-play.png', 'YouTube');
         var contactsTable = contactRows ? '<table cellpadding="0" cellspacing="0" border="0"><tbody>' + contactRows + '</tbody></table>' : '';
-        var wrapperStyle = 'max-width:580px;background:#1A1D2C;border:2px solid rgba(255,255,255,0.2);border-radius:12px;font-family:\'Segoe UI\',Arial,sans-serif;';
-        var leftColStyle = 'padding:16px 20px;border-right:1px solid rgba(255,255,255,0.15);text-align:center;';
-        var titleTdStyle = 'font-size:11px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:2px;text-transform:uppercase;padding-bottom:12px;';
-        var footerRowStyle = 'padding:14px 24px;border-top:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.2);';
-        var main = '<table cellpadding="0" cellspacing="0" border="0" width="580" style="' + wrapperStyle + '"><tr><td width="180" valign="top" style="' + leftColStyle + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="padding-bottom:12px;">' + photoImg + '</td></tr><tr><td>' + logoImg + '</td></tr><tr><td style="font-size:11px;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase;">' + brand1 + '</td></tr><tr><td style="font-size:8px;font-weight:600;color:rgba(255,255,255,0.75);letter-spacing:1.5px;text-transform:uppercase;">' + brand2 + '</td></tr></table></td><td valign="top" style="padding:16px 24px;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:26px;font-weight:400;color:#fff;font-family:Georgia,serif;padding-bottom:6px;">' + name + '</td></tr><tr><td style="' + titleTdStyle + '">' + title + '</td></tr><tr><td style="padding-top:8px;">' + contactsTable + '</td></tr></table></td></tr><tr><td colspan="2" style="' + footerRowStyle + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:2px;vertical-align:middle;">FOLLOW US</td><td style="vertical-align:middle;padding-left:14px;">' + socialLinks + '</td><td align="right" valign="middle">' + businessCardLink + '</td></tr></table></td></tr></table>';
+        var wrap = 'max-width:580px;background:#1A1D2C;border:2px solid rgba(255,255,255,.2);border-radius:12px;font-family:Arial,sans-serif';
+        var left = 'padding:16px 20px;border-right:1px solid rgba(255,255,255,.15);text-align:center';
+        var tit = 'font-size:11px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:2px;text-transform:uppercase;padding-bottom:12px';
+        var foot = 'padding:14px 24px;border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.2)';
+        var b1 = 'font-size:11px;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase';
+        var b2 = 'font-size:8px;font-weight:600;color:rgba(255,255,255,.75);letter-spacing:1.5px;text-transform:uppercase';
+        var main = '<table cellpadding="0" cellspacing="0" border="0" width="580" style="' + wrap + '"><tr><td width="180" valign="top" style="' + left + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="padding-bottom:12px">' + photoImg + '</td></tr><tr><td>' + logoImg + '</td></tr><tr><td style="' + b1 + '">' + brand1 + '</td></tr><tr><td style="' + b2 + '">' + brand2 + '</td></tr></table></td><td valign="top" style="padding:16px 24px"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:26px;font-weight:400;color:#fff;font-family:Georgia,serif;padding-bottom:6px">' + name + '</td></tr><tr><td style="' + tit + '">' + title + '</td></tr><tr><td style="padding-top:8px">' + contactsTable + '</td></tr></table></td></tr><tr><td colspan="2" style="' + foot + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:2px;vertical-align:middle">FOLLOW US</td><td style="vertical-align:middle;padding-left:14px">' + socialLinks + '</td><td align="right" valign="middle">' + businessCardLink + '</td></tr></table></td></tr></table>';
         return main;
     }
 
