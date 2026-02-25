@@ -220,6 +220,16 @@
                 font-size: 0.8rem;
             }
         }
+
+        .sig-email-preview-inline table a[title] {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        .sig-email-preview-inline table a[title] svg,
+        .sig-email-preview-inline table a[title] img {
+            display: block;
+        }
     </style>
 </head>
 
@@ -260,6 +270,8 @@
                         aria-controls="business-card-section">Business card</button>
                     <button type="button" class="tab-btn" id="tabEmailSignature" role="tab" aria-selected="false"
                         aria-controls="signature-section">Email signature</button>
+                    <button type="button" class="tab-btn" id="tabCopyForEmail" role="tab" aria-selected="false"
+                        aria-controls="signature-email-section">Copy for email</button>
                 </div>
                 <section class="card-view-section" id="business-card-section">
                     <h2>Digital Business Card</h2>
@@ -368,6 +380,13 @@
                             </div>
                         </div>
                     </div>
+                </section>
+
+                <section class="card-view-section" id="signature-email-section" style="display: none;">
+                    <h2>Copy for email</h2>
+                    <p style="color: rgba(255,255,255,0.85); font-size: 0.9rem; margin-bottom: 16px;">Table-based signature with inline CSS. Paste into Gmail or other email clients.</p>
+                    <div id="sig-email-preview" class="sig-email-preview-inline" style="margin-bottom: 16px; max-width: 580px;"></div>
+                    <button type="button" id="copy-sig-html" class="btn-copy">Copy signature HTML</button>
                 </section>
             </div>
         </div>

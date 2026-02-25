@@ -207,11 +207,11 @@
     color: #ffffff;
 }
 
-/* Dark card: contact buttons – white bg, dark text (dashboard style) */
+/* Dark card: contact buttons – dashboard style (dark bg, golden icons, white text) */
 .card-dark .contact-btn {
-    background: #ffffff;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: var(--bg-main);
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary-dark);
 }
 
 .card-dark .contact-btn .contact-icon {
@@ -219,30 +219,55 @@
 }
 
 .card-dark .contact-btn .contact-icon svg {
-    fill: var(--bg-main);
+    fill: var(--brand-accent);
 }
 
 .card-dark .contact-btn .contact-label {
-    color: var(--bg-main);
+    color: var(--text-muted-dark);
     font-weight: 700;
     font-size: 11px;
     letter-spacing: 1.5px;
 }
 
 .card-dark .contact-btn .contact-text {
-    color: var(--bg-main);
+    color: var(--text-primary-dark);
     font-weight: 600;
     font-size: 13px;
 }
 
 .card-dark .contact-btn:hover {
-    background: var(--text-secondary-dark);
+    background: var(--bg-card-alt);
     border-color: rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
+.card-dark .location.contact-btn {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 4px solid var(--brand-accent);
+}
+
+.card-dark .location.contact-btn:hover {
+    background: var(--bg-card-alt);
+    border-color: rgba(255, 255, 255, 0.3);
+    border-left-color: var(--brand-accent);
+}
+
+.card-dark .location.contact-btn .contact-icon svg {
+    fill: var(--brand-accent);
+}
+
+.card-dark .location.contact-btn .contact-label {
+    color: var(--text-muted-dark);
+}
+
 .card-dark .location.contact-btn .location-text {
-    color: var(--bg-main);
+    color: var(--text-primary-dark);
+}
+
+.card-dark .location.contact-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--bg-card-alt), 0 0 0 4px rgba(255, 255, 255, 0.9);
 }
 
 /* Dark card: WhatsApp CTA – keep green but with white border */
@@ -404,7 +429,7 @@
 }
 
 .card-dark .contact-item:focus-visible {
-    box-shadow: 0 0 0 2px var(--bg-main), 0 0 0 4px #ffffff;
+    box-shadow: 0 0 0 2px var(--bg-card-alt), 0 0 0 4px rgba(255, 255, 255, 0.9);
 }
 
 .contact-icon {

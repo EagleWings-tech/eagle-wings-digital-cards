@@ -66,6 +66,12 @@
     var DEFAULT_BRAND1 = 'EAGLE WINGS';
     var DEFAULT_BRAND2 = 'BUSINESS CONSULTANT';
 
+    function toAbsoluteUrl(url) {
+        if (!url) return '';
+        if (/^https?:\/\//i.test(url)) return url;
+        try { return new URL(url, window.location.href).href; } catch (e) { return url; }
+    }
+
     function fillCard(data) {
         var logo = document.getElementById('card-logo');
         var photo = document.getElementById('card-photo');
@@ -172,6 +178,79 @@
         if (data.youtube) socials.innerHTML += '<a href="' + data.youtube + '" target="_blank" rel="noopener noreferrer" class="soc yt" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>';
     }
 
+    function escapeHtml(s) {
+        if (!s) return '';
+        return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    var GOLD = '#FFC107';
+    /* Gmail-safe: minimal 1-color outline icons (Icons8 material-outlined, gold) */
+    var SIG_ICON_BASE = 'https://img.icons8.com/material-outlined/24/FFC107/';
+    var SIG_ICON_PHONE = '<img src="' + SIG_ICON_BASE + 'phone.png" width="14" height="14" alt="" style="display:block;border:0;">';
+    var SIG_ICON_EMAIL = '<img src="' + SIG_ICON_BASE + 'new-post.png" width="14" height="14" alt="" style="display:block;border:0;">';
+    var SIG_ICON_WEB = '<img src="' + SIG_ICON_BASE + 'globe.png" width="14" height="14" alt="" style="display:block;border:0;">';
+    var SIG_ICON_PIN = '<img src="' + SIG_ICON_BASE + 'marker.png" width="14" height="14" alt="" style="display:block;border:0;">';
+    /* Gmail-safe: minimal 1-color outline social icons, wrapped in table for center alignment */
+    var SIG_SOC_BASE = 'https://img.icons8.com/material-outlined/24/ffffff/';
+    function sigSocImg(src, alt) {
+        return '<table cellpadding="0" cellspacing="0" border="0" width="36" height="36" style="border-collapse:collapse;"><tr><td align="center" valign="middle" style="padding:0;"><img src="' + src + '" width="16" height="16" alt="' + alt + '" style="display:block;margin:0 auto;border:0;"></td></tr></table>';
+    }
+    var SIG_SOC_WA = sigSocImg(SIG_SOC_BASE + 'whatsapp.png', 'WhatsApp');
+    var SIG_SOC_FB = sigSocImg(SIG_SOC_BASE + 'facebook-f.png', 'Facebook');
+    var SIG_SOC_IG = sigSocImg(SIG_SOC_BASE + 'instagram-new.png', 'Instagram');
+    var SIG_SOC_LI = sigSocImg(SIG_SOC_BASE + 'linkedin.png', 'LinkedIn');
+    var SIG_SOC_TT = sigSocImg(SIG_SOC_BASE + 'tiktok.png', 'TikTok');
+    var SIG_SOC_YT = sigSocImg(SIG_SOC_BASE + 'youtube-play.png', 'YouTube');
+
+    function buildEmailSignatureHtml(data, cardUrl) {
+        var photoUrl = toAbsoluteUrl(data.profilePhotoUrl || '');
+        var logoUrl = toAbsoluteUrl(data.logoUrl || DEFAULT_LOGO);
+        var cardUrlEsc = escapeHtml(cardUrl || '#');
+        var businessCardLink = '<a href="' + cardUrlEsc + '" target="_blank" rel="noopener noreferrer" style="color:#FFC107;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Business card</a>';
+        var name = escapeHtml(data.fullName || '');
+        var title = escapeHtml(data.jobTitle || '');
+        var mobile = (data.mobile || '').replace(/\s/g, '');
+        var email = (data.email || '');
+        var emailEsc = escapeHtml(email);
+        var website = (data.website || '');
+        var webDisplay = website ? website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '';
+        var addrShort = (data.officeAddress || '').split('\n')[0] || '';
+        var mapsUrl = (data.mapsLink || '#');
+        var linkStyle = 'color:#e8edf8;text-decoration:none;font-size:13px;';
+        var linkStyleUpper = 'color:#e8edf8;text-decoration:none;font-size:12px;text-transform:uppercase;';
+        var contactRows = '';
+        if (mobile) contactRows += '<tr><td style="vertical-align:middle;width:22px;padding:4px 6px 4px 0;">' + SIG_ICON_PHONE + '</td><td style="padding:4px 0;"><a href="tel:' + mobile + '" style="' + linkStyle + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(data.mobile || '') + '</a></td></tr>';
+        if (email) contactRows += '<tr><td style="vertical-align:middle;width:22px;padding:4px 6px 4px 0;">' + SIG_ICON_EMAIL + '</td><td style="padding:4px 0;"><a href="mailto:' + escapeHtml(email) + '" style="' + linkStyleUpper + '" target="_blank" rel="noopener noreferrer">' + emailEsc + '</a></td></tr>';
+        if (website) contactRows += '<tr><td style="vertical-align:middle;width:22px;padding:4px 6px 4px 0;">' + SIG_ICON_WEB + '</td><td style="padding:4px 0;"><a href="' + escapeHtml(website) + '" style="' + linkStyleUpper + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(webDisplay) + '</a></td></tr>';
+        if (addrShort) contactRows += '<tr><td style="vertical-align:middle;width:22px;padding:4px 6px 4px 0;">' + SIG_ICON_PIN + '</td><td style="padding:4px 0;"><a href="' + escapeHtml(mapsUrl) + '" style="' + linkStyle + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(addrShort) + '</a></td></tr>';
+        var photoImg = photoUrl ? '<img src="' + photoUrl + '" alt="" width="80" height="80" style="display:block;margin:0 auto;border-radius:50%;border:3px solid #1A1D2C;">' : '';
+        var logoImg = '<img src="https://digital.eaglewingsuae.com/images/logo-img.png" alt="Eagle Wings" width="56" style="display:block;margin:0 auto;">';
+        var socBorder = 'border:1px solid #FFC107;';
+        var socialLinks = '';
+        var waNum = (data.whatsapp || data.mobile || '').replace(/\D/g, '');
+        if (waNum) socialLinks += '<a href="https://wa.me/' + waNum + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="WhatsApp">' + SIG_SOC_WA + '</a>';
+        if (data.facebook) socialLinks += '<a href="' + escapeHtml(data.facebook) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="Facebook">' + SIG_SOC_FB + '</a>';
+        if (data.instagram) socialLinks += '<a href="' + escapeHtml(data.instagram) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="Instagram">' + SIG_SOC_IG + '</a>';
+        if (data.linkedin) socialLinks += '<a href="' + escapeHtml(data.linkedin) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="LinkedIn">' + SIG_SOC_LI + '</a>';
+        if (data.tiktok) socialLinks += '<a href="' + escapeHtml(data.tiktok) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;margin-right:6px;" title="TikTok">' + SIG_SOC_TT + '</a>';
+        if (data.youtube) socialLinks += '<a href="' + escapeHtml(data.youtube) + '" target="_blank" rel="noopener noreferrer" style="display:inline-block;width:36px;height:36px;' + socBorder + 'border-radius:10px;text-align:center;line-height:36px;" title="YouTube">' + SIG_SOC_YT + '</a>';
+        var contactsTable = contactRows ? '<table cellpadding="0" cellspacing="0" border="0"><tbody>' + contactRows + '</tbody></table>' : '';
+        var wrapperStyle = 'max-width:580px;background:#1A1D2C;border:2px solid rgba(255,255,255,0.2);border-radius:12px;font-family:\'Segoe UI\',Arial,sans-serif;';
+        var leftColStyle = 'padding:16px 20px;border-right:1px solid rgba(255,255,255,0.15);text-align:center;';
+        var titleTdStyle = 'font-size:11px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:2px;text-transform:uppercase;padding-bottom:12px;';
+        var footerRowStyle = 'padding:14px 24px;border-top:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.2);';
+        var main = '<table cellpadding="0" cellspacing="0" border="0" width="580" style="' + wrapperStyle + '"><tr><td width="180" valign="top" style="' + leftColStyle + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="padding-bottom:12px;">' + photoImg + '</td></tr><tr><td>' + logoImg + '</td></tr><tr><td style="padding-top:6px;">' + businessCardLink + '</td></tr></table></td><td valign="top" style="padding:16px 24px;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:26px;font-weight:400;color:#fff;font-family:Georgia,serif;padding-bottom:6px;">' + name + '</td></tr><tr><td style="' + titleTdStyle + '">' + title + '</td></tr><tr><td style="padding-top:8px;">' + contactsTable + '</td></tr></table></td></tr><tr><td colspan="2" style="' + footerRowStyle + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:2px;vertical-align:middle;">FOLLOW US</td><td style="vertical-align:middle;padding-left:14px;">' + socialLinks + '</td><td align="right" valign="middle">' + businessCardLink + '</td></tr></table></td></tr></table>';
+        return main;
+    }
+
+    function fillEmailSignatureSection(data, cardUrl) {
+        var html = buildEmailSignatureHtml(data, cardUrl);
+        var preview = document.getElementById('sig-email-preview');
+        if (preview) preview.innerHTML = html;
+        var btn = document.getElementById('copy-sig-html');
+        if (btn) btn._sigHtml = html;
+    }
+
     function copyToClipboard(inputEl, btnEl) {
         if (!inputEl || !inputEl.value || !btnEl) return;
         inputEl.select();
@@ -211,21 +290,26 @@
             var baseUrl = window.location.origin + window.location.pathname;
             var cardUrl = baseUrl + '?id=' + encodeURIComponent(id) + '&view=card';
             var signatureUrl = baseUrl + '?id=' + encodeURIComponent(id) + '&view=signature';
+            fillEmailSignatureSection(data, cardUrl);
             var shareLinksEl = document.querySelector('.card-share-links');
             var tabBarEl = document.getElementById('cardTabBar');
             var cardSection = document.getElementById('business-card-section');
             var sigSection = document.getElementById('signature-section');
+            var sigEmailSection = document.getElementById('signature-email-section');
             var cardInput = document.getElementById('link-business-card');
             var sigInput = document.getElementById('link-email-signature');
             var cardCopyBtn = document.getElementById('copy-business-card');
             var sigCopyBtn = document.getElementById('copy-email-signature');
             var tabCardBtn = document.getElementById('tabBusinessCard');
             var tabSigBtn = document.getElementById('tabEmailSignature');
+            var tabCopyForEmailBtn = document.getElementById('tabCopyForEmail');
+            var copySigHtmlBtn = document.getElementById('copy-sig-html');
 
             var isStandalone = view === 'card' || view === 'signature';
             if (isStandalone) {
                 if (shareLinksEl) shareLinksEl.style.display = 'none';
                 if (tabBarEl) tabBarEl.style.display = 'none';
+                if (sigEmailSection) sigEmailSection.style.display = 'none';
                 var cardH2 = cardSection ? cardSection.querySelector('h2') : null;
                 var sigH2 = sigSection ? sigSection.querySelector('h2') : null;
                 if (cardH2) cardH2.style.display = 'none';
@@ -243,25 +327,50 @@
                 var activeTab = view === 'signature' ? 'signature' : 'card';
                 function setTab(tab) {
                     activeTab = tab;
-                    if (tab === 'card') {
-                        if (cardSection) cardSection.style.display = 'block';
-                        if (sigSection) sigSection.style.display = 'none';
-                        if (tabCardBtn) { tabCardBtn.classList.add('active'); tabCardBtn.setAttribute('aria-selected', 'true'); }
-                        if (tabSigBtn) { tabSigBtn.classList.remove('active'); tabSigBtn.setAttribute('aria-selected', 'false'); }
-                    } else {
-                        if (cardSection) cardSection.style.display = 'none';
-                        if (sigSection) sigSection.style.display = 'block';
-                        if (tabCardBtn) { tabCardBtn.classList.remove('active'); tabCardBtn.setAttribute('aria-selected', 'false'); }
-                        if (tabSigBtn) { tabSigBtn.classList.add('active'); tabSigBtn.setAttribute('aria-selected', 'true'); }
-                    }
+                    if (cardSection) cardSection.style.display = tab === 'card' ? 'block' : 'none';
+                    if (sigSection) sigSection.style.display = tab === 'signature' ? 'block' : 'none';
+                    if (sigEmailSection) sigEmailSection.style.display = tab === 'email' ? 'block' : 'none';
+                    if (tabCardBtn) { tabCardBtn.classList.toggle('active', tab === 'card'); tabCardBtn.setAttribute('aria-selected', tab === 'card'); }
+                    if (tabSigBtn) { tabSigBtn.classList.toggle('active', tab === 'signature'); tabSigBtn.setAttribute('aria-selected', tab === 'signature'); }
+                    if (tabCopyForEmailBtn) { tabCopyForEmailBtn.classList.toggle('active', tab === 'email'); tabCopyForEmailBtn.setAttribute('aria-selected', tab === 'email'); }
                 }
                 setTab(activeTab);
                 if (tabCardBtn) tabCardBtn.addEventListener('click', function () { setTab('card'); });
                 if (tabSigBtn) tabSigBtn.addEventListener('click', function () { setTab('signature'); });
+                if (tabCopyForEmailBtn) tabCopyForEmailBtn.addEventListener('click', function () { setTab('email'); });
                 if (cardInput) cardInput.value = cardUrl;
                 if (sigInput) sigInput.value = signatureUrl;
                 if (cardCopyBtn) cardCopyBtn.addEventListener('click', function () { copyToClipboard(cardInput, cardCopyBtn); });
                 if (sigCopyBtn) sigCopyBtn.addEventListener('click', function () { copyToClipboard(sigInput, sigCopyBtn); });
+                if (copySigHtmlBtn) copySigHtmlBtn.addEventListener('click', function () {
+                    var html = copySigHtmlBtn._sigHtml;
+                    if (!html) return;
+                    var blobHtml = new Blob([html], { type: 'text/html' });
+                    var blobPlain = new Blob([html], { type: 'text/plain' });
+                    navigator.clipboard.write([new ClipboardItem({ 'text/html': blobHtml, 'text/plain': blobPlain })])
+                        .then(function () {
+                            copySigHtmlBtn.textContent = 'Copied!';
+                            copySigHtmlBtn.classList.add('copied');
+                            setTimeout(function () { copySigHtmlBtn.textContent = 'Copy signature HTML'; copySigHtmlBtn.classList.remove('copied'); }, 2000);
+                        })
+                        .catch(function () {
+                            try {
+                                navigator.clipboard.writeText(html);
+                            } catch (e) {
+                                var ta = document.createElement('textarea');
+                                ta.value = html;
+                                ta.style.position = 'fixed';
+                                ta.style.left = '-9999px';
+                                document.body.appendChild(ta);
+                                ta.select();
+                                try { document.execCommand('copy'); } catch (e2) {}
+                                document.body.removeChild(ta);
+                            }
+                            copySigHtmlBtn.textContent = 'Copied!';
+                            copySigHtmlBtn.classList.add('copied');
+                            setTimeout(function () { copySigHtmlBtn.textContent = 'Copy signature HTML'; copySigHtmlBtn.classList.remove('copied'); }, 2000);
+                        });
+                });
             }
         }
     });
