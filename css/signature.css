@@ -112,10 +112,13 @@
     font-family: var(--font-name);
     font-size: 30px;
     font-weight: 400;
-    color: #ffffff;
     line-height: 1.1;
     margin-bottom: 8px;
     letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--brand-accent) 0%, rgba(255, 255, 255, 0.95) 50%, var(--brand-accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .sig-title {
