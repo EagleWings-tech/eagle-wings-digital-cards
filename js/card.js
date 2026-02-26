@@ -207,8 +207,11 @@
     var SIG_SOC_BASE = 'https://img.icons8.com/material-outlined/24/ffffff/';
     function sigSocLink(href, iconFile, title) {
         var src = SIG_SOC_BASE + iconFile;
-        var s = 'display:inline-block;width:36px;height:36px;border:1px solid #FFC107;border-radius:10px;text-align:center;line-height:36px;margin-right:6px;';
-        return '<a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" style="' + s + '" title="' + escapeHtml(title) + '"><img src="' + src + '" width="16" height="16" alt="' + escapeHtml(title) + '" style="display:block;margin:0 auto;border:0"></a>';
+        /* Outlook: border on TABLE (Word ignores border on a), centering via td align/valign. bordercolor for MSO. */
+        var imgTag = '<img src="' + src + '" width="16" height="16" alt="' + escapeHtml(title) + '" style="display:block;border:0;margin:0 auto">';
+        var linkWrap = '<a href="' + escapeHtml(href) + '" target="_blank" rel="noopener noreferrer" title="' + escapeHtml(title) + '">' + imgTag + '</a>';
+        var innerCell = '<td align="center" valign="middle" width="36" height="36" style="text-align:center;vertical-align:middle;padding:0;width:36px;height:36px">' + linkWrap + '</td>';
+        return '<table cellpadding="0" cellspacing="0" border="1" width="36" height="36" bordercolor="#FFC107" style="width:36px;height:36px;border-collapse:collapse;border:1px solid #FFC107;border-radius:10px"><tr>' + innerCell + '</tr></table>';
     }
 
     function buildEmailSignatureHtml(data, cardUrl) {
@@ -239,14 +242,16 @@
         if (addrShort) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_PIN + '</td><td style="' + pt + '"><a href="' + escapeHtml(mapsUrl) + '" style="' + lnk + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(addrShort) + '</a></td></tr>';
         var photoImg = photoUrl ? '<img src="' + photoUrl + '" alt="" width="80" height="80" style="display:block;margin:0 auto;border-radius:50%;border:3px solid #1A1D2C">' : '';
         var logoImg = '<img src="https://digital.eaglewingsuae.com/images/logo-img.png" alt="Eagle Wings" width="56" style="display:block;margin:0 auto">';
-        var socialLinks = '';
+        var socialCells = '';
         var waNum = (data.whatsapp || data.mobile || '').replace(/\D/g, '');
-        if (waNum) socialLinks += sigSocLink('https://wa.me/' + waNum, 'whatsapp.png', 'WhatsApp');
-        if (data.facebook) socialLinks += sigSocLink(data.facebook, 'facebook-f.png', 'Facebook');
-        if (data.instagram) socialLinks += sigSocLink(data.instagram, 'instagram-new.png', 'Instagram');
-        if (data.linkedin) socialLinks += sigSocLink(data.linkedin, 'linkedin.png', 'LinkedIn');
-        if (data.tiktok) socialLinks += sigSocLink(data.tiktok, 'tiktok.png', 'TikTok');
-        if (data.youtube) socialLinks += sigSocLink(data.youtube, 'youtube-play.png', 'YouTube');
+        /* Td has no border; border and rounding are on the icon (anchor) only */
+        if (waNum) socialCells += '<td style="padding-right:6px;vertical-align:middle;text-align:center;border:none">' + sigSocLink('https://wa.me/' + waNum, 'whatsapp.png', 'WhatsApp') + '</td>';
+        if (data.facebook) socialCells += '<td style="padding-right:6px;vertical-align:middle;text-align:center;border:none">' + sigSocLink(data.facebook, 'facebook-f.png', 'Facebook') + '</td>';
+        if (data.instagram) socialCells += '<td style="padding-right:6px;vertical-align:middle;text-align:center;border:none">' + sigSocLink(data.instagram, 'instagram-new.png', 'Instagram') + '</td>';
+        if (data.linkedin) socialCells += '<td style="padding-right:6px;vertical-align:middle;text-align:center;border:none">' + sigSocLink(data.linkedin, 'linkedin.png', 'LinkedIn') + '</td>';
+        if (data.tiktok) socialCells += '<td style="padding-right:6px;vertical-align:middle;text-align:center;border:none">' + sigSocLink(data.tiktok, 'tiktok.png', 'TikTok') + '</td>';
+        if (data.youtube) socialCells += '<td style="padding-right:6px;vertical-align:middle;text-align:center;border:none">' + sigSocLink(data.youtube, 'youtube-play.png', 'YouTube') + '</td>';
+        var socialLinksRow = socialCells ? '<table cellpadding="0" cellspacing="0" border="0" align="center" style="border-collapse:collapse"><tr>' + socialCells + '</tr></table>' : '';
         var contactsTable = contactRows ? '<table cellpadding="0" cellspacing="0" border="0"><tbody>' + contactRows + '</tbody></table>' : '';
         var wrap = 'max-width:580px;background:#1A1D2C;border:2px solid rgba(255,255,255,.2);border-radius:12px;font-family:Arial,sans-serif';
         var left = 'padding:16px 20px;border-right:1px solid rgba(255,255,255,.15);text-align:center';
@@ -254,7 +259,7 @@
         var foot = 'padding:14px 24px;border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.2)';
         var b1 = 'font-size:11px;font-weight:700;color:#fff;letter-spacing:2.5px;text-transform:uppercase';
         var b2 = 'font-size:8px;font-weight:600;color:rgba(255,255,255,.75);letter-spacing:2px;text-transform:uppercase';
-        var main = '<table cellpadding="0" cellspacing="0" border="0" width="580" style="' + wrap + '"><tr><td width="180" valign="top" style="' + left + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="padding-bottom:12px">' + photoImg + '</td></tr><tr><td>' + logoImg + '</td></tr><tr><td style="' + b1 + '">' + brand1 + '</td></tr><tr><td style="' + b2 + '">' + brand2 + '</td></tr></table></td><td valign="top" style="padding:16px 24px"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:26px;font-weight:400;color:#fff;font-family:Georgia,serif;padding-bottom:6px">' + name + '</td></tr><tr><td style="' + tit + '">' + title + '</td></tr><tr><td style="padding-top:8px">' + contactsTable + '</td></tr></table></td></tr><tr><td colspan="2" style="' + foot + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:2px;vertical-align:middle">FOLLOW US</td><td style="vertical-align:middle;padding-left:14px">' + socialLinks + '</td><td align="right" valign="middle">' + businessCardLink + '</td></tr></table></td></tr></table>';
+        var main = '<table cellpadding="0" cellspacing="0" border="0" width="580" style="' + wrap + '"><tr><td width="180" valign="top" style="' + left + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="padding-bottom:12px">' + photoImg + '</td></tr><tr><td>' + logoImg + '</td></tr><tr><td style="' + b1 + '">' + brand1 + '</td></tr><tr><td style="' + b2 + '">' + brand2 + '</td></tr></table></td><td valign="top" style="padding:16px 24px"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:26px;font-weight:400;color:#fff;font-family:Georgia,serif;padding-bottom:6px">' + name + '</td></tr><tr><td style="' + tit + '">' + title + '</td></tr><tr><td style="padding-top:8px">' + contactsTable + '</td></tr></table></td></tr><tr><td colspan="2" style="' + foot + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:2px;vertical-align:middle">FOLLOW US</td><td align="center" style="vertical-align:middle;padding:0 14px;text-align:center">' + socialLinksRow + '</td><td align="right" valign="middle">' + businessCardLink + '</td></tr></table></td></tr></table>';
         return main;
     }
 
