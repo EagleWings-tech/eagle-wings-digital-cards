@@ -2,6 +2,7 @@
     var DEMO_DATA = {
         fullName: 'Bilal Cheema',
         jobTitle: 'Digital Transformation Lead',
+        profession: 'business_consultant',
         profilePhotoUrl: 'https://i.imgur.com/rT4jZG4.jpeg',
         mobile: '+971 50 631 1572',
         email: 'bilal@eaglewingsuae.com',
@@ -66,6 +67,16 @@
     var DEFAULT_BRAND1 = 'EAGLE WINGS';
     var DEFAULT_BRAND2 = 'BUSINESS CONSULTANT';
 
+    function getProfessionLabel(profession) {
+        if (profession === 'property_experts') return 'Property expert';
+        if (profession === 'business_consultant') return 'Business consultant';
+        return '';
+    }
+
+    function getBrand2Display(data) {
+        return getProfessionLabel(data.profession) || data.brandLine2 || DEFAULT_BRAND2;
+    }
+
     function toAbsoluteUrl(url) {
         if (!url) return '';
         if (/^https?:\/\//i.test(url)) return url;
@@ -73,21 +84,22 @@
     }
 
     function fillCard(data) {
+        var brand2Display = getBrand2Display(data);
         var logo = document.getElementById('card-logo');
         var photo = document.getElementById('card-photo');
         setAttr(photo, 'src', data.profilePhotoUrl);
         setAttr(photo, 'alt', data.fullName);
         setAttr(logo, 'src', data.logoUrl || DEFAULT_LOGO);
-        setAttr(logo, 'alt', data.brandLine1 || DEFAULT_BRAND1);
+        setAttr(logo, 'alt', data.brandLine1 || getProfessionLabel(data.profession) || DEFAULT_BRAND1);
         setText(document.getElementById('card-header-brand1'), data.brandLine1 || DEFAULT_BRAND1);
-        setText(document.getElementById('card-header-brand2'), data.brandLine2 || DEFAULT_BRAND2);
+        setText(document.getElementById('card-header-brand2'), brand2Display);
         setText(document.getElementById('card-name'), data.fullName);
         setText(document.getElementById('card-title'), data.jobTitle);
         setText(document.getElementById('card-brand1'), data.brandLine1 || '');
-        setText(document.getElementById('card-brand2'), data.brandLine2 || '');
+        setText(document.getElementById('card-brand2'), brand2Display);
         var footer = document.getElementById('card-footer');
         if (footer) {
-            var hasFooter = (data.brandLine1 && data.brandLine1.trim()) || (data.brandLine2 && data.brandLine2.trim());
+            var hasFooter = (data.brandLine1 && data.brandLine1.trim()) || brand2Display.trim();
             footer.style.display = hasFooter ? 'block' : 'none';
         }
         setText(document.getElementById('card-mobile'), data.mobile);
@@ -139,17 +151,18 @@
     }
 
     function fillSignature(data) {
+        var brand2Display = getBrand2Display(data);
         setAttr(document.getElementById('sig-photo'), 'src', data.profilePhotoUrl);
         setAttr(document.getElementById('sig-photo'), 'alt', data.fullName);
         var sigLogo = document.getElementById('sig-logo');
         setAttr(sigLogo, 'src', data.logoUrl || DEFAULT_LOGO);
         sigLogo.style.display = 'block';
         setText(document.getElementById('sig-brand1'), data.brandLine1 || DEFAULT_BRAND1);
-        setText(document.getElementById('sig-brand2'), data.brandLine2 || DEFAULT_BRAND2);
+        setText(document.getElementById('sig-brand2'), brand2Display);
         setText(document.getElementById('sig-name'), data.fullName);
         setText(document.getElementById('sig-title'), data.jobTitle);
         setText(document.getElementById('sig-footer-brand1'), data.brandLine1 || DEFAULT_BRAND1);
-        setText(document.getElementById('sig-footer-brand2'), data.brandLine2 || DEFAULT_BRAND2);
+        setText(document.getElementById('sig-footer-brand2'), brand2Display);
         var contacts = document.getElementById('sig-contacts');
         contacts.innerHTML = '';
         if (data.mobile) {
@@ -202,7 +215,7 @@
         var photoUrl = toAbsoluteUrl(data.profilePhotoUrl || '');
         var logoUrl = toAbsoluteUrl(data.logoUrl || DEFAULT_LOGO);
         var brand1 = escapeHtml(data.brandLine1 || DEFAULT_BRAND1);
-        var brand2 = escapeHtml(data.brandLine2 || DEFAULT_BRAND2);
+        var brand2 = escapeHtml(getBrand2Display(data));
         var cardUrlEsc = escapeHtml(cardUrl || '#');
         var cardLnkStyle = 'color:#FFC107;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase';
         var businessCardLink = '<a href="' + cardUrlEsc + '" target="_blank" rel="noopener noreferrer" style="' + cardLnkStyle + '">Business card</a>';
@@ -239,8 +252,8 @@
         var left = 'padding:16px 20px;border-right:1px solid rgba(255,255,255,.15);text-align:center';
         var tit = 'font-size:11px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:2px;text-transform:uppercase;padding-bottom:12px';
         var foot = 'padding:14px 24px;border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.2)';
-        var b1 = 'font-size:11px;font-weight:700;color:#fff;letter-spacing:2px;text-transform:uppercase';
-        var b2 = 'font-size:8px;font-weight:600;color:rgba(255,255,255,.75);letter-spacing:1.5px;text-transform:uppercase';
+        var b1 = 'font-size:11px;font-weight:700;color:#fff;letter-spacing:2.5px;text-transform:uppercase';
+        var b2 = 'font-size:8px;font-weight:600;color:rgba(255,255,255,.75);letter-spacing:2px;text-transform:uppercase';
         var main = '<table cellpadding="0" cellspacing="0" border="0" width="580" style="' + wrap + '"><tr><td width="180" valign="top" style="' + left + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="padding-bottom:12px">' + photoImg + '</td></tr><tr><td>' + logoImg + '</td></tr><tr><td style="' + b1 + '">' + brand1 + '</td></tr><tr><td style="' + b2 + '">' + brand2 + '</td></tr></table></td><td valign="top" style="padding:16px 24px"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:26px;font-weight:400;color:#fff;font-family:Georgia,serif;padding-bottom:6px">' + name + '</td></tr><tr><td style="' + tit + '">' + title + '</td></tr><tr><td style="padding-top:8px">' + contactsTable + '</td></tr></table></td></tr><tr><td colspan="2" style="' + foot + '"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td style="font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:2px;vertical-align:middle">FOLLOW US</td><td style="vertical-align:middle;padding-left:14px">' + socialLinks + '</td><td align="right" valign="middle">' + businessCardLink + '</td></tr></table></td></tr></table>';
         return main;
     }

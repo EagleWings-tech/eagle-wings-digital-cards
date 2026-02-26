@@ -30,6 +30,13 @@
     --font-heading: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-body: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     --font-name: 'DM Serif Display', Georgia, serif;
+    /* Logo brand text – same everywhere (card, signature, email) */
+    --logo-brand1-size: 11px;
+    --logo-brand1-weight: 700;
+    --logo-brand1-spacing: 2.5px;
+    --logo-brand2-size: 8px;
+    --logo-brand2-weight: 600;
+    --logo-brand2-spacing: 2px;
 }
 
 * {

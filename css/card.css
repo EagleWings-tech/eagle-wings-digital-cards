@@ -136,22 +136,21 @@
     font-family: var(--font-heading);
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
 .card-header-brand1 {
-    font-size: 10px;
-    font-weight: 700;
+    font-size: var(--logo-brand1-size);
+    font-weight: var(--logo-brand1-weight);
+    letter-spacing: var(--logo-brand1-spacing);
     color: #ffffff;
-    letter-spacing: 2.5px;
 }
 
 .card-header-brand2 {
-    font-size: 7px;
-    font-weight: 600;
+    font-size: var(--logo-brand2-size);
+    font-weight: var(--logo-brand2-weight);
+    letter-spacing: var(--logo-brand2-spacing);
     color: rgba(255, 255, 255, 0.85);
     margin-top: 2px;
-    letter-spacing: 1.8px;
 }
 
 /* Dark card: white serif name, white title */
@@ -300,21 +299,21 @@
 }
 
 .card-footer-brand1 {
-    font-family: var(--font-name);
-    font-size: 12px;
-    font-weight: 400;
+    font-family: var(--font-heading);
+    font-size: var(--logo-brand1-size);
+    font-weight: var(--logo-brand1-weight);
+    letter-spacing: var(--logo-brand1-spacing);
     color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
     margin-bottom: 2px;
 }
 
 .card-footer-brand2 {
-    font-size: 9px;
-    font-weight: 600;
+    font-size: var(--logo-brand2-size);
+    font-weight: var(--logo-brand2-weight);
+    letter-spacing: var(--logo-brand2-spacing);
     color: rgba(255, 255, 255, 0.75);
     text-transform: uppercase;
-    letter-spacing: 2px;
 }
 
 .badge {

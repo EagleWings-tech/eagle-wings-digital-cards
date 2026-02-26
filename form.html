@@ -27,6 +27,19 @@
                     <input type="text" id="jobTitle" name="jobTitle" placeholder="e.g. Digital Transformation Lead">
                 </div>
                 <div class="form-group">
+                    <label class="radio-group-label">Profession <span class="optional">(required)</span></label>
+                    <div class="radio-group" role="radiogroup" aria-label="Profession">
+                        <label class="radio-option">
+                            <input type="radio" name="profession" value="property_experts" id="professionPropertyExperts" required>
+                            <span>Property experts</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="profession" value="business_consultant" id="professionBusinessConsultant">
+                            <span>Business consultant</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="profilePhoto">Profile Photo <span class="optional">(required)</span></label>
                     <div class="upload-zone" id="profilePhotoZone" role="button" tabindex="0" aria-label="Upload profile photo">
                         <input type="file" id="profilePhoto" name="profilePhoto" accept="image/jpeg,image/png,image/webp">

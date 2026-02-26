@@ -9,6 +9,7 @@
     var requiredFields = [
         { id: 'fullName', label: 'Full Name', message: 'Please enter your full name.' },
         { id: 'jobTitle', label: 'Job Title', message: 'Please enter your job title.' },
+        { id: 'professionPropertyExperts', label: 'Profession', message: 'Please select a profession.', isRadio: true },
         { id: 'profilePhoto', label: 'Profile Photo', message: 'Please upload a profile photo (JPG, PNG or WebP).', isFile: true },
         { id: 'mobile', label: 'Mobile', message: 'Please enter your mobile number.' },
         { id: 'email', label: 'Work Email', message: 'Please enter a valid work email address.' }
@@ -56,6 +57,8 @@
             var valid = false;
             if (def.isFile && field) {
                 valid = field.files && field.files.length > 0;
+            } else if (def.isRadio) {
+                valid = !!document.querySelector('input[name="profession"]:checked');
             } else if (field) {
                 valid = field.value.trim() !== '';
             }
@@ -114,6 +117,11 @@
         field.addEventListener('blur', function () { clearError(this); });
     });
 
+    var professionRadios = document.querySelectorAll('input[name="profession"]');
+    professionRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () { clearError(document.getElementById('professionPropertyExperts')); });
+    });
+
     var whatsappInput = document.getElementById('whatsapp');
     var mobileInput = document.getElementById('mobile');
     if (mobileInput && whatsappInput) {
@@ -150,9 +158,12 @@
             readDataUrl(profileFile),
         ]).then(function (results) {
             var profilePhotoBase64 = results[0];
+            var professionEl = document.querySelector('input[name="profession"]:checked');
+            var profession = professionEl ? professionEl.value : '';
             var payload = {
                 fullName: document.getElementById('fullName').value.trim(),
                 jobTitle: document.getElementById('jobTitle').value.trim(),
+                profession: profession,
                 profilePhotoBase64: profilePhotoBase64,
                 mobile: document.getElementById('mobile').value.trim(),
                 email: document.getElementById('email').value.trim(),
