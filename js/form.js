@@ -167,6 +167,7 @@
                 profilePhotoBase64: profilePhotoBase64,
                 mobile: document.getElementById('mobile').value.trim(),
                 email: document.getElementById('email').value.trim(),
+                landline: document.getElementById('landline').value.trim(),
                 website: document.getElementById('website').value.trim(),
                 officeAddress: document.getElementById('officeAddress').value.trim(),
                 mapsLink: document.getElementById('mapsLink').value.trim(),
@@ -177,8 +178,7 @@
                 tiktok: document.getElementById('tiktok').value.trim(),
                 youtube: document.getElementById('youtube').value.trim()
             };
-            var apiBase = 'https://eagle-wings-backend.onrender.com';
-            return fetch(apiBase + '/api/identity', {
+            return fetch(EW_API_BASE + '/api/identity', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

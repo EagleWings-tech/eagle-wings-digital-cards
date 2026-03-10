@@ -5,6 +5,7 @@
         profession: 'business_consultant',
         profilePhotoUrl: 'https://i.imgur.com/rT4jZG4.jpeg',
         mobile: '+971 50 631 1572',
+        landline: '',
         email: 'bilal@eaglewingsuae.com',
         website: 'https://eaglewingsuae.com/',
         officeAddress: '1509, 1 Lake Plaza, JLT Cluster T\nDubai, United Arab Emirates',
@@ -28,8 +29,7 @@
             else return DEMO_DATA;
             return;
         }
-        var apiBase = 'https://eagle-wings-backend.onrender.com';
-        fetch(apiBase + '/api/identity/' + encodeURIComponent(id))
+        fetch(EW_API_BASE + '/api/identity/' + encodeURIComponent(id))
             .then(function (res) {
                 if (res.status === 404) {
                     if (callback) callback(null);
@@ -102,6 +102,8 @@
             var hasFooter = (data.brandLine1 && data.brandLine1.trim()) || brand2Display.trim();
             footer.style.display = hasFooter ? 'block' : 'none';
         }
+        setText(document.getElementById('card-landline'), data.landline);
+        setHref(document.getElementById('card-link-landline'), data.landline ? ('tel:' + (data.landline || '').replace(/\s/g, '')) : '');
         setText(document.getElementById('card-mobile'), data.mobile);
         setText(document.getElementById('card-email'), data.email);
         setText(document.getElementById('card-website'), data.website ? data.website.replace(/^https?:\/\//, '').replace(/\/$/, '') : '');
@@ -165,6 +167,9 @@
         setText(document.getElementById('sig-footer-brand2'), brand2Display);
         var contacts = document.getElementById('sig-contacts');
         contacts.innerHTML = '';
+        if (data.landline) {
+            contacts.innerHTML += '<a href="tel:' + (data.landline || '').replace(/\s/g, '') + '" class="sig-contact-item" target="_blank" rel="noopener noreferrer"><span class="cicon"><svg viewBox="0 0 24 24"><path d="M16 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H4V4h12v16zm-5-9h2v2h-2v-2zm0 4h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2z"/></svg></span>' + data.landline + '</a>';
+        }
         if (data.mobile) {
             contacts.innerHTML += '<a href="tel:' + (data.mobile || '').replace(/\s/g, '') + '" class="sig-contact-item" target="_blank" rel="noopener noreferrer"><span class="cicon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></span>' + data.mobile + '</a>';
         }
@@ -200,6 +205,8 @@
     /* Gmail-safe: minimal 1-color outline icons (Icons8 material-outlined, gold) */
     var SIG_ICON_BASE = 'https://img.icons8.com/material-outlined/24/FFC107/';
     var SIG_ICON_PHONE = '<img src="' + SIG_ICON_BASE + 'phone.png" width="14" height="14" alt="" style="display:block;border:0">';
+    /* Email-safe fallback (no external image) to distinguish landline */
+    var SIG_ICON_LANDLINE = '<span style="display:block;width:14px;height:14px;line-height:14px;font-size:14px;color:#FFC107;text-align:center">☎</span>';
     var SIG_ICON_EMAIL = '<img src="' + SIG_ICON_BASE + 'new-post.png" width="14" height="14" alt="" style="display:block;border:0">';
     var SIG_ICON_WEB = '<img src="' + SIG_ICON_BASE + 'globe.png" width="14" height="14" alt="" style="display:block;border:0">';
     var SIG_ICON_PIN = '<img src="' + SIG_ICON_BASE + 'marker.png" width="14" height="14" alt="" style="display:block;border:0">';
@@ -225,6 +232,7 @@
         var name = escapeHtml(data.fullName || '');
         var title = escapeHtml(data.jobTitle || '');
         var mobile = (data.mobile || '').replace(/\s/g, '');
+        var landline = (data.landline || '').replace(/\s/g, '');
         var email = (data.email || '');
         var emailEsc = escapeHtml(email);
         var website = (data.website || '');
@@ -236,6 +244,7 @@
         var ic = 'vertical-align:middle;width:22px;padding:4px 6px 4px 0';
         var pt = 'padding:4px 0';
         var contactRows = '';
+        if (landline) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_LANDLINE + '</td><td style="' + pt + '"><a href="tel:' + landline + '" style="' + lnk + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(data.landline || '') + '</a></td></tr>';
         if (mobile) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_PHONE + '</td><td style="' + pt + '"><a href="tel:' + mobile + '" style="' + lnk + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(data.mobile || '') + '</a></td></tr>';
         if (email) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_EMAIL + '</td><td style="' + pt + '"><a href="mailto:' + escapeHtml(email) + '" style="' + lnkUp + '" target="_blank" rel="noopener noreferrer">' + emailEsc + '</a></td></tr>';
         if (website) contactRows += '<tr><td style="' + ic + '">' + SIG_ICON_WEB + '</td><td style="' + pt + '"><a href="' + escapeHtml(website) + '" style="' + lnkUp + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(webDisplay) + '</a></td></tr>';
@@ -383,7 +392,7 @@
                                 ta.style.left = '-9999px';
                                 document.body.appendChild(ta);
                                 ta.select();
-                                try { document.execCommand('copy'); } catch (e2) {}
+                                try { document.execCommand('copy'); } catch (e2) { }
                                 document.body.removeChild(ta);
                             }
                             copySigHtmlBtn.textContent = 'Copied!';
