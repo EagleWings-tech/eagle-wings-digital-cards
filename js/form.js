@@ -10,7 +10,6 @@
         { id: 'fullName', label: 'Full Name', message: 'Please enter your full name.' },
         { id: 'jobTitle', label: 'Job Title', message: 'Please enter your job title.' },
         { id: 'professionPropertyExperts', label: 'Profession', message: 'Please select a profession.', isRadio: true },
-        { id: 'profilePhoto', label: 'Profile Photo', message: 'Please upload a profile photo (JPG, PNG or WebP).', isFile: true },
         { id: 'mobile', label: 'Mobile', message: 'Please enter your mobile number.' },
         { id: 'email', label: 'Work Email', message: 'Please enter a valid work email address.' }
     ];
@@ -147,6 +146,7 @@
         }
         var profileFile = profileInput && profileInput.files && profileInput.files[0];
         function readDataUrl(file) {
+            if (!file) return Promise.resolve('');
             return new Promise(function (resolve, reject) {
                 var r = new FileReader();
                 r.onload = function () { resolve(r.result); };

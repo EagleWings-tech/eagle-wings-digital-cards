@@ -87,8 +87,14 @@
         var brand2Display = getBrand2Display(data);
         var logo = document.getElementById('card-logo');
         var photo = document.getElementById('card-photo');
-        setAttr(photo, 'src', data.profilePhotoUrl);
-        setAttr(photo, 'alt', data.fullName);
+        var photoRing = photo ? photo.closest('.profile-photo-ring') : null;
+        if (data.profilePhotoUrl) {
+            setAttr(photo, 'src', data.profilePhotoUrl);
+            setAttr(photo, 'alt', data.fullName);
+            if (photoRing) photoRing.style.display = '';
+        } else if (photoRing) {
+            photoRing.style.display = 'none';
+        }
         setAttr(logo, 'src', data.logoUrl || DEFAULT_LOGO);
         setAttr(logo, 'alt', data.brandLine1 || getProfessionLabel(data.profession) || DEFAULT_BRAND1);
         setText(document.getElementById('card-header-brand1'), data.brandLine1 || DEFAULT_BRAND1);
@@ -154,8 +160,15 @@
 
     function fillSignature(data) {
         var brand2Display = getBrand2Display(data);
-        setAttr(document.getElementById('sig-photo'), 'src', data.profilePhotoUrl);
-        setAttr(document.getElementById('sig-photo'), 'alt', data.fullName);
+        var sigPhoto = document.getElementById('sig-photo');
+        var sigPhotoRing = sigPhoto ? sigPhoto.closest('.sig-photo-ring') : null;
+        if (data.profilePhotoUrl) {
+            setAttr(sigPhoto, 'src', data.profilePhotoUrl);
+            setAttr(sigPhoto, 'alt', data.fullName);
+            if (sigPhotoRing) sigPhotoRing.style.display = '';
+        } else if (sigPhotoRing) {
+            sigPhotoRing.style.display = 'none';
+        }
         var sigLogo = document.getElementById('sig-logo');
         setAttr(sigLogo, 'src', data.logoUrl || DEFAULT_LOGO);
         sigLogo.style.display = 'block';
